@@ -1,0 +1,1928 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0f4c5c">
+  <meta name="description" content="古焱玲的个人主页，广东工业大学集成电路学院集成电路设计与集成系统创新班，目标是在广工找到方向并致力于芯片制造。">
+  <link rel="canonical" href="https://Yanlinng.github.io/reimagined-parakeet/">
+  <meta property="og:title" content="古焱玲｜个人主页">
+  <meta property="og:description" content="广东工业大学集成电路学院集成电路设计与集成系统创新班。">
+  <meta property="og:url" content="https://Yanlinng.github.io/reimagined-parakeet/">
+  <meta property="og:type" content="website">
+  <title>古焱玲｜个人主页</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f6f8f5;
+      --paper-deep: #eaf0ed;
+      --white: #ffffff;
+      --ink: #162629;
+      --muted: #617477;
+      --line: #ccd9d5;
+      --teal: #0f4c5c;
+      --teal-bright: #1c7c89;
+      --coral: #e9684a;
+      --yellow: #efbd4c;
+      --blue: #4a9fe8;
+      --blue-bright: #75bdf5;
+      --blue-deep: #2b67b1;
+      --blue-soft: #dcecff;
+      --mint: #b8ddd4;
+      --shadow: rgba(20, 55, 59, 0.12);
+      --radius: 8px;
+      font-family: "Microsoft YaHei UI", "PingFang SC", "Noto Sans SC", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-width: 320px;
+      margin: 0;
+      color: var(--ink);
+      background:
+        linear-gradient(120deg, rgba(28, 124, 137, 0.055), transparent 38%),
+        linear-gradient(250deg, rgba(74, 159, 232, 0.07), transparent 34%),
+        linear-gradient(300deg, rgba(233, 104, 74, 0.045), transparent 34%),
+        var(--paper);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.38;
+      background-image:
+        linear-gradient(rgba(15, 76, 92, 0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(15, 76, 92, 0.045) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: linear-gradient(to bottom, black, transparent 78%);
+    }
+
+    a {
+      color: inherit;
+    }
+
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button:focus-visible,
+    a:focus-visible {
+      outline: 3px solid var(--yellow);
+      outline-offset: 3px;
+    }
+
+    .shell {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid rgba(15, 76, 92, 0.1);
+      background: rgba(246, 248, 245, 0.88);
+      backdrop-filter: blur(14px);
+    }
+
+    .nav {
+      min-height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .wordmark {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--ink);
+      text-decoration: none;
+      font-size: 17px;
+      font-weight: 500;
+      letter-spacing: 0;
+    }
+
+    .wordmark::before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+      background: var(--coral);
+      box-shadow: 12px 0 0 var(--yellow);
+      transform: translateX(-6px);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .nav-links a {
+      padding: 10px 13px;
+      border-radius: 6px;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 160ms ease, background 160ms ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--ink);
+      background: rgba(15, 76, 92, 0.065);
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 90px 0 82px;
+    }
+
+    .hero-doodles {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.68;
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(290px, 0.85fr);
+      align-items: center;
+      gap: 70px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin: 0 0 22px;
+      color: var(--teal);
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 28px;
+      height: 2px;
+      background: var(--coral);
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
+    }
+
+    h1 {
+      max-width: 720px;
+      margin-bottom: 20px;
+      font-size: 72px;
+      line-height: 1.06;
+      font-weight: 500;
+      letter-spacing: 0;
+    }
+
+    .hero-role {
+      margin-bottom: 17px;
+      color: var(--teal-bright);
+      font-size: 19px;
+      line-height: 1.55;
+      font-weight: 500;
+    }
+
+    .hero-copy {
+      max-width: 670px;
+      margin-bottom: 30px;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.9;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .button {
+      min-height: 46px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 19px;
+      border: 1px solid transparent;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+    }
+
+    .button-primary {
+      color: var(--white);
+      background: var(--teal);
+      box-shadow: 0 12px 30px rgba(15, 76, 92, 0.18);
+    }
+
+    .button-primary:hover {
+      background: #0b3e4b;
+    }
+
+    .button-secondary {
+      color: var(--teal);
+      border-color: var(--line);
+      background: rgba(255, 255, 255, 0.62);
+    }
+
+    .button-secondary:hover {
+      border-color: var(--teal-bright);
+      background: var(--white);
+    }
+
+    .portrait-wrap {
+      position: relative;
+      display: grid;
+      place-items: center;
+      min-height: 410px;
+      isolation: isolate;
+    }
+
+    .portrait-wrap::before,
+    .portrait-wrap::after {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      border-radius: 50%;
+    }
+
+    .portrait-wrap::before {
+      width: 350px;
+      height: 350px;
+      border: 1px solid rgba(15, 76, 92, 0.18);
+      box-shadow:
+        0 0 0 34px rgba(184, 221, 212, 0.14),
+        0 0 0 70px rgba(184, 221, 212, 0.06);
+    }
+
+    .portrait-wrap::after {
+      width: 118px;
+      height: 118px;
+      right: 12px;
+      bottom: 32px;
+      background: var(--yellow);
+      opacity: 0.9;
+    }
+
+    .cartoon-chip {
+      position: absolute;
+      left: 0;
+      bottom: 12px;
+      z-index: 3;
+      width: 142px;
+      height: auto;
+      filter: drop-shadow(0 16px 22px rgba(43, 103, 177, 0.2));
+      animation: mascotFloat 4.2s ease-in-out infinite;
+    }
+
+    .cartoon-spark {
+      position: absolute;
+      top: 34px;
+      right: 8px;
+      z-index: 3;
+      width: 72px;
+      height: auto;
+      filter: drop-shadow(0 10px 16px rgba(74, 159, 232, 0.22));
+      animation: sparkFloat 3.4s ease-in-out infinite;
+    }
+
+    @keyframes mascotFloat {
+      0%,
+      100% {
+        transform: translateY(0) rotate(-2deg);
+      }
+
+      50% {
+        transform: translateY(-8px) rotate(1deg);
+      }
+    }
+
+    @keyframes sparkFloat {
+      0%,
+      100% {
+        transform: translateY(0) scale(1);
+      }
+
+      50% {
+        transform: translateY(7px) scale(1.04);
+      }
+    }
+
+    .chip-portrait {
+      width: min(100%, 360px);
+      height: auto;
+      filter: drop-shadow(0 24px 42px rgba(15, 76, 92, 0.2));
+    }
+
+    .identity-strip {
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.44);
+    }
+
+    .identity-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .identity-item {
+      min-height: 112px;
+      padding: 25px 28px;
+      border-right: 1px solid var(--line);
+    }
+
+    .identity-item:first-child {
+      border-left: 1px solid var(--line);
+    }
+
+    .identity-label,
+    .section-kicker {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.4;
+      letter-spacing: 0;
+    }
+
+    .identity-value {
+      margin: 0;
+      font-size: 17px;
+      line-height: 1.55;
+      font-weight: 500;
+    }
+
+    .section {
+      padding: 92px 0;
+    }
+
+    .section-with-stars {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section-with-stars > .shell {
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-stars {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.58;
+    }
+
+    .star-twinkle {
+      transform-origin: center;
+      animation: starTwinkle 3.8s ease-in-out infinite;
+    }
+
+    @keyframes starTwinkle {
+      0%,
+      100% {
+        opacity: 0.42;
+        transform: scale(0.9) rotate(0deg);
+      }
+
+      50% {
+        opacity: 0.95;
+        transform: scale(1.08) rotate(8deg);
+      }
+    }
+
+    .section-heading {
+      max-width: 760px;
+      margin-bottom: 44px;
+    }
+
+    h2 {
+      margin-bottom: 18px;
+      font-size: 40px;
+      line-height: 1.24;
+      font-weight: 500;
+      letter-spacing: 0;
+    }
+
+    .section-heading p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.85;
+    }
+
+    .about-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      gap: 76px;
+      align-items: start;
+    }
+
+    .about-note {
+      position: relative;
+      padding: 8px 0 8px 26px;
+      border-left: 3px solid var(--coral);
+      color: var(--teal);
+      font-size: 23px;
+      line-height: 1.65;
+      font-weight: 500;
+    }
+
+    .about-text {
+      display: grid;
+      gap: 22px;
+    }
+
+    .about-text p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.95;
+    }
+
+    .section-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .title-star {
+      width: 13px;
+      height: 13px;
+      flex: 0 0 auto;
+      fill: var(--blue);
+    }
+
+    .goal-statement {
+      max-width: 940px;
+      margin: 0 0 48px;
+      padding: 30px 34px;
+      border-left: 5px solid var(--coral);
+      background: rgba(255, 255, 255, 0.58);
+      color: var(--teal);
+      font-size: 23px;
+      line-height: 1.72;
+      font-weight: 500;
+    }
+
+    .goal-track {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      border-top: 1px solid var(--line);
+    }
+
+    .goal-step {
+      position: relative;
+      min-height: 285px;
+      padding: 34px 28px 18px 0;
+      border-right: 1px solid var(--line);
+    }
+
+    .goal-step:not(:first-child) {
+      padding-left: 28px;
+    }
+
+    .goal-step:last-child {
+      padding-right: 0;
+      border-right: 0;
+    }
+
+    .goal-step::before {
+      content: "";
+      position: absolute;
+      top: -6px;
+      left: 0;
+      width: 11px;
+      height: 11px;
+      border-radius: 2px;
+      background: var(--teal-bright);
+      box-shadow: 0 0 0 5px var(--paper);
+    }
+
+    .goal-step:not(:first-child)::before {
+      left: 28px;
+    }
+
+    .goal-step:nth-child(2)::before {
+      background: var(--coral);
+    }
+
+    .goal-step:nth-child(3)::before {
+      background: var(--yellow);
+    }
+
+    .goal-index {
+      display: block;
+      margin-bottom: 32px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .goal-step h3 {
+      margin-bottom: 14px;
+      font-size: 20px;
+      line-height: 1.4;
+      font-weight: 500;
+    }
+
+    .goal-step p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.85;
+    }
+
+    .learning-intro {
+      display: grid;
+      grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
+      gap: 70px;
+      margin-bottom: 48px;
+    }
+
+    .learning-note {
+      margin: 0;
+      padding-left: 22px;
+      border-left: 4px solid var(--blue);
+      color: var(--blue-deep);
+      font-size: 20px;
+      line-height: 1.7;
+      font-weight: 500;
+    }
+
+    .learning-copy {
+      margin: 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.95;
+    }
+
+    .knowledge-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .knowledge-item {
+      min-height: 270px;
+      padding: 30px 22px 24px 0;
+      border-right: 1px solid var(--line);
+    }
+
+    .knowledge-item:not(:first-child) {
+      padding-left: 22px;
+    }
+
+    .knowledge-item:last-child {
+      padding-right: 0;
+      border-right: 0;
+    }
+
+    .knowledge-index {
+      display: block;
+      margin-bottom: 26px;
+      color: var(--blue-deep);
+      font-size: 12px;
+      line-height: 1.4;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .knowledge-item h3 {
+      margin-bottom: 13px;
+      font-size: 18px;
+      line-height: 1.45;
+      font-weight: 500;
+    }
+
+    .knowledge-item p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .chip-chain {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 48px;
+    }
+
+    .chain-step {
+      min-height: 170px;
+      padding: 24px 22px;
+      border-left: 4px solid var(--blue);
+      background: rgba(220, 236, 255, 0.48);
+    }
+
+    .chain-step:nth-child(2) {
+      border-left-color: var(--teal-bright);
+    }
+
+    .chain-step:nth-child(3) {
+      border-left-color: var(--coral);
+    }
+
+    .chain-step:nth-child(4) {
+      border-left-color: var(--yellow);
+    }
+
+    .chain-step span {
+      display: block;
+      margin-bottom: 22px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1;
+    }
+
+    .chain-step h3 {
+      margin-bottom: 11px;
+      font-size: 18px;
+      line-height: 1.4;
+      font-weight: 500;
+    }
+
+    .chain-step p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.75;
+    }
+
+    .action-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
+      gap: 72px;
+      align-items: start;
+    }
+
+    .action-summary {
+      position: sticky;
+      top: 104px;
+      padding: 30px 28px;
+      border-left: 4px solid var(--blue);
+      background: rgba(220, 236, 255, 0.48);
+    }
+
+    .action-summary h3 {
+      margin-bottom: 16px;
+      color: var(--blue-deep);
+      font-size: 21px;
+      line-height: 1.45;
+      font-weight: 500;
+    }
+
+    .action-summary p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.85;
+    }
+
+    .action-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0 34px;
+      border-top: 1px solid var(--line);
+    }
+
+    .action-item {
+      display: grid;
+      grid-template-columns: 42px minmax(0, 1fr);
+      gap: 14px;
+      padding: 25px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .action-number {
+      color: var(--blue);
+      font-size: 13px;
+      line-height: 1.6;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .action-item h3 {
+      margin-bottom: 8px;
+      font-size: 17px;
+      line-height: 1.45;
+      font-weight: 500;
+    }
+
+    .action-item p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.78;
+    }
+
+    .personality-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .personality-item {
+      min-height: 260px;
+      padding: 31px 28px 26px 0;
+      border-right: 1px solid var(--line);
+    }
+
+    .personality-item:not(:first-child) {
+      padding-left: 28px;
+    }
+
+    .personality-item:last-child {
+      padding-right: 0;
+      border-right: 0;
+    }
+
+    .personality-item h3 {
+      margin-bottom: 15px;
+      font-size: 20px;
+      line-height: 1.45;
+      font-weight: 500;
+    }
+
+    .personality-item p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.88;
+    }
+
+    .interest-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .interest-card {
+      min-height: 230px;
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-top: 4px solid var(--teal-bright);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.72);
+      box-shadow: 0 14px 36px rgba(20, 55, 59, 0.055);
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+
+    .interest-card:nth-child(2) {
+      border-top-color: var(--coral);
+    }
+
+    .interest-card:nth-child(3) {
+      border-top-color: var(--yellow);
+    }
+
+    .interest-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 44px rgba(20, 55, 59, 0.1);
+    }
+
+    .interest-number {
+      display: block;
+      margin-bottom: 38px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .interest-card h3 {
+      margin-bottom: 14px;
+      font-size: 21px;
+      line-height: 1.3;
+      font-weight: 500;
+    }
+
+    .interest-card p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.85;
+    }
+
+    .contact-band {
+      position: relative;
+      overflow: hidden;
+      color: var(--white);
+      background: var(--teal);
+    }
+
+    .contact-band::after {
+      content: "";
+      position: absolute;
+      right: -90px;
+      top: -160px;
+      width: 420px;
+      height: 420px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 50%;
+      box-shadow:
+        0 0 0 44px rgba(255, 255, 255, 0.045),
+        0 0 0 88px rgba(255, 255, 255, 0.025);
+      pointer-events: none;
+    }
+
+    .contact-layout {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      gap: 72px;
+      align-items: start;
+    }
+
+    .contact-copy .section-kicker {
+      color: var(--mint);
+    }
+
+    .contact-copy h2 {
+      max-width: 500px;
+      color: var(--white);
+    }
+
+    .contact-copy p {
+      max-width: 520px;
+      margin-bottom: 0;
+      color: rgba(255, 255, 255, 0.72);
+      font-size: 16px;
+      line-height: 1.85;
+    }
+
+    .contact-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .contact-row {
+      display: grid;
+      grid-template-columns: 90px minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 14px;
+      min-height: 78px;
+      padding: 15px 17px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.065);
+    }
+
+    .contact-label {
+      color: var(--mint);
+      font-size: 13px;
+    }
+
+    .contact-value {
+      min-width: 0;
+      overflow-wrap: anywhere;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    .contact-value a {
+      color: inherit;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 4px;
+    }
+
+    .copy-button {
+      min-width: 58px;
+      min-height: 42px;
+      padding: 0 13px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      border-radius: 6px;
+      color: var(--white);
+      background: rgba(255, 255, 255, 0.08);
+      font: inherit;
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 150ms ease, border-color 150ms ease;
+    }
+
+    .copy-button:hover {
+      border-color: rgba(255, 255, 255, 0.55);
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .footer {
+      padding: 28px 0;
+      color: var(--muted);
+      background: var(--paper-deep);
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 24px;
+      z-index: 50;
+      min-width: 150px;
+      padding: 12px 18px;
+      border-radius: 6px;
+      color: var(--white);
+      background: var(--ink);
+      box-shadow: 0 12px 34px var(--shadow);
+      text-align: center;
+      font-size: 14px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, 12px);
+      transition: opacity 160ms ease, transform 160ms ease;
+    }
+
+    .toast.visible {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 500ms ease, transform 500ms ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        padding-top: 66px;
+      }
+
+      .hero-grid,
+      .about-layout,
+      .contact-layout {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+
+      .portrait-wrap {
+        min-height: 340px;
+      }
+
+      .cartoon-chip {
+        left: 5%;
+        bottom: 2px;
+        width: 126px;
+      }
+
+      .cartoon-spark {
+        top: 14px;
+        right: 6%;
+        width: 62px;
+      }
+
+      .identity-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .identity-item,
+      .identity-item:first-child {
+        border-right: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+        border-left: 1px solid var(--line);
+      }
+
+      .identity-item:last-child {
+        border-bottom: 0;
+      }
+
+      .interest-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .goal-track {
+        grid-template-columns: 1fr;
+        border-top: 0;
+      }
+
+      .goal-step,
+      .goal-step:not(:first-child) {
+        min-height: 0;
+        padding: 0 0 30px 27px;
+        border-right: 0;
+        border-left: 1px solid var(--line);
+      }
+
+      .goal-step:last-child {
+        padding-bottom: 0;
+      }
+
+      .goal-step::before,
+      .goal-step:not(:first-child)::before {
+        top: 4px;
+        left: -6px;
+      }
+
+      .goal-index {
+        margin-bottom: 12px;
+      }
+
+      .learning-intro,
+      .action-layout {
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+
+      .knowledge-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        border-bottom: 0;
+      }
+
+      .knowledge-item,
+      .knowledge-item:not(:first-child) {
+        min-height: 0;
+        padding: 25px 22px;
+        border-right: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .knowledge-item:nth-child(even) {
+        border-right: 0;
+      }
+
+      .chip-chain {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .action-summary {
+        position: static;
+      }
+
+      .personality-grid {
+        grid-template-columns: 1fr;
+        border-bottom: 0;
+      }
+
+      .personality-item,
+      .personality-item:not(:first-child) {
+        min-height: 0;
+        padding: 25px 0;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .interest-card {
+        min-height: 0;
+      }
+
+      .interest-number {
+        margin-bottom: 22px;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .shell {
+        width: min(100% - 28px, 1120px);
+      }
+
+      .nav {
+        min-height: 62px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        padding: 52px 0 58px;
+      }
+
+      .hero-grid {
+        gap: 32px;
+      }
+
+      .eyebrow {
+        margin-bottom: 17px;
+      }
+
+      h1 {
+        margin-bottom: 16px;
+        font-size: 48px;
+      }
+
+      .hero-role {
+        font-size: 17px;
+      }
+
+      .hero-copy {
+        font-size: 16px;
+        line-height: 1.85;
+      }
+
+      .hero-actions {
+        align-items: stretch;
+      }
+
+      .button {
+        flex: 1;
+      }
+
+      .portrait-wrap {
+        min-height: 300px;
+      }
+
+      .portrait-wrap::before {
+        width: 252px;
+        height: 252px;
+      }
+
+      .portrait-wrap::after {
+        width: 82px;
+        height: 82px;
+        right: 18px;
+        bottom: 25px;
+      }
+
+      .cartoon-chip {
+        left: -2px;
+        bottom: -4px;
+        width: 106px;
+      }
+
+      .cartoon-spark {
+        top: 0;
+        right: -4px;
+        width: 54px;
+      }
+
+      .identity-item {
+        padding: 21px 20px;
+      }
+
+      .section {
+        padding: 68px 0;
+      }
+
+      h2 {
+        font-size: 32px;
+      }
+
+      .about-layout {
+        gap: 30px;
+      }
+
+      .about-note {
+        font-size: 20px;
+      }
+
+      .goal-statement {
+        margin-bottom: 36px;
+        padding: 24px 22px;
+        font-size: 19px;
+      }
+
+      .learning-intro {
+        margin-bottom: 34px;
+      }
+
+      .learning-note {
+        font-size: 18px;
+      }
+
+      .knowledge-grid,
+      .chip-chain,
+      .action-list {
+        grid-template-columns: 1fr;
+      }
+
+      .knowledge-item,
+      .knowledge-item:not(:first-child),
+      .knowledge-item:nth-child(even) {
+        padding: 23px 0;
+        border-right: 0;
+      }
+
+      .chain-step {
+        min-height: 0;
+      }
+
+      .action-summary {
+        padding: 24px 22px;
+      }
+
+      .personality-item h3 {
+        font-size: 18px;
+      }
+
+      .interest-card {
+        padding: 23px;
+      }
+
+      .contact-layout {
+        gap: 38px;
+      }
+
+      .contact-row {
+        grid-template-columns: 1fr auto;
+        gap: 8px 14px;
+      }
+
+      .contact-label {
+        grid-column: 1 / -1;
+      }
+
+      .contact-value {
+        font-size: 15px;
+      }
+
+      .footer-inner {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 6px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav shell" aria-label="主导航">
+      <a class="wordmark" href="#top">古焱玲</a>
+      <div class="nav-links">
+        <a href="#about">关于我</a>
+        <a href="#goals">我的目标</a>
+        <a href="#learning">学习方向</a>
+        <a href="#interests">兴趣爱好</a>
+        <a href="#actions">成长计划</a>
+        <a href="#personality">性格相处</a>
+        <a href="#contact">联系我</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <svg class="hero-doodles" viewBox="0 0 1200 600" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <pattern id="blueCartoonPattern" width="220" height="168" patternUnits="userSpaceOnUse">
+            <g opacity="0.46" fill="none" stroke="#4a9fe8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M26 28l5 12 12 2-9 9 2 13-10-6-11 6 2-13-9-9 13-2z"/>
+              <path d="M42 118c12-15 24 13 36-2s24 12 35-3"/>
+              <path d="M166 28h16M174 20v16"/>
+              <path d="M145 114h11v11h11v11h-11v11h-11v-11h-11v-11h11z"/>
+            </g>
+            <g opacity="0.52">
+              <rect x="74" y="29" width="50" height="42" rx="9" fill="#dcecff" stroke="#2b67b1" stroke-width="3"/>
+              <rect x="84" y="39" width="30" height="22" rx="5" fill="#75bdf5"/>
+              <circle cx="93" cy="49" r="2.5" fill="#162629"/>
+              <circle cx="105" cy="49" r="2.5" fill="#162629"/>
+              <path d="M93 57c4 4 8 4 12 0" fill="none" stroke="#2b67b1" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M79 39h-8M79 60h-8M119 39h8M119 60h8M93 25v-7M106 25v-7M93 75v7M106 75v7" stroke="#2b67b1" stroke-width="3" stroke-linecap="round"/>
+            </g>
+          </pattern>
+        </defs>
+        <rect width="1200" height="600" fill="url(#blueCartoonPattern)"/>
+      </svg>
+      <div class="hero-grid shell">
+        <div>
+          <p class="eyebrow">广东工业大学 · 集成电路学院 · 创新班</p>
+          <h1>你好，我是<br>古焱玲</h1>
+          <p class="hero-role">集成电路设计与集成系统 · 本科在读</p>
+          <p class="hero-copy">
+            来自广东梅州，目前就读于广东工业大学集成电路学院集成电路设计与集成系统创新班。
+            我希望在这里找到真正愿意长期投入的方向，持续积累与芯片制造相关的知识、能力与实践经验。
+            性格温和，也喜欢在技术、运动与日常交流之间寻找新的理解和连接。
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#contact">联系我</a>
+            <a class="button button-secondary" href="#interests">了解兴趣</a>
+          </div>
+        </div>
+
+        <div class="portrait-wrap" aria-label="古焱玲的芯片主题个人标识">
+          <svg class="chip-portrait" viewBox="0 0 420 420" role="img" aria-labelledby="chipTitle chipDesc">
+            <title id="chipTitle">集成电路主题个人标识</title>
+            <desc id="chipDesc">带有 GYL 字母、电路走线和芯片引脚的装饰性图形，不代表真实照片。</desc>
+            <defs>
+              <linearGradient id="chipBody" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#163f49"/>
+                <stop offset="100%" stop-color="#0f4c5c"/>
+              </linearGradient>
+              <linearGradient id="chipInner" x1="0" y1="1" x2="1" y2="0">
+                <stop offset="0%" stop-color="#b8ddd4"/>
+                <stop offset="100%" stop-color="#f6f8f5"/>
+              </linearGradient>
+            </defs>
+            <g fill="none" stroke="#1c7c89" stroke-width="4" stroke-linecap="round">
+              <path d="M42 116h48V78h52"/>
+              <path d="M278 78h49v58h51"/>
+              <path d="M43 291h70v51h50"/>
+              <path d="M262 342h64v-70h51"/>
+              <circle cx="43" cy="116" r="6" fill="#efbd4c" stroke="none"/>
+              <circle cx="378" cy="136" r="6" fill="#e9684a" stroke="none"/>
+              <circle cx="163" cy="342" r="6" fill="#e9684a" stroke="none"/>
+              <circle cx="326" cy="272" r="6" fill="#efbd4c" stroke="none"/>
+            </g>
+            <g transform="translate(76 70)">
+              <rect width="268" height="282" rx="20" fill="url(#chipBody)"/>
+              <rect x="20" y="20" width="228" height="242" rx="12" fill="url(#chipInner)"/>
+              <g fill="#14353d">
+                <rect x="-30" y="42" width="30" height="14" rx="4"/>
+                <rect x="-30" y="78" width="30" height="14" rx="4"/>
+                <rect x="-30" y="114" width="30" height="14" rx="4"/>
+                <rect x="-30" y="150" width="30" height="14" rx="4"/>
+                <rect x="-30" y="186" width="30" height="14" rx="4"/>
+                <rect x="-30" y="222" width="30" height="14" rx="4"/>
+                <rect x="268" y="42" width="30" height="14" rx="4"/>
+                <rect x="268" y="78" width="30" height="14" rx="4"/>
+                <rect x="268" y="114" width="30" height="14" rx="4"/>
+                <rect x="268" y="150" width="30" height="14" rx="4"/>
+                <rect x="268" y="186" width="30" height="14" rx="4"/>
+                <rect x="268" y="222" width="30" height="14" rx="4"/>
+                <rect x="63" y="-22" width="14" height="24" rx="4"/>
+                <rect x="104" y="-22" width="14" height="24" rx="4"/>
+                <rect x="145" y="-22" width="14" height="24" rx="4"/>
+                <rect x="186" y="-22" width="14" height="24" rx="4"/>
+                <rect x="63" y="280" width="14" height="24" rx="4"/>
+                <rect x="104" y="280" width="14" height="24" rx="4"/>
+                <rect x="145" y="280" width="14" height="24" rx="4"/>
+                <rect x="186" y="280" width="14" height="24" rx="4"/>
+              </g>
+              <g fill="none" stroke="#1c7c89" stroke-width="3">
+                <path d="M42 54h50v44h45v-44h83v53h-76v45h82v70h-66"/>
+                <path d="M42 224h39v-48h57v78h67v-43h37"/>
+                <circle cx="92" cy="98" r="5" fill="#efbd4c" stroke="none"/>
+                <circle cx="137" cy="98" r="5" fill="#e9684a" stroke="none"/>
+                <circle cx="220" cy="54" r="5" fill="#e9684a" stroke="none"/>
+                <circle cx="81" cy="176" r="5" fill="#efbd4c" stroke="none"/>
+                <circle cx="205" cy="254" r="5" fill="#e9684a" stroke="none"/>
+              </g>
+              <text x="134" y="168" fill="#0f4c5c" text-anchor="middle" font-family="Arial, sans-serif" font-size="62" font-weight="700" letter-spacing="2">GYL</text>
+              <text x="134" y="204" fill="#617477" text-anchor="middle" font-family="Microsoft YaHei, sans-serif" font-size="15">IC DESIGN</text>
+            </g>
+          </svg>
+          <svg class="cartoon-chip" viewBox="0 0 190 180" aria-hidden="true">
+            <defs>
+              <linearGradient id="cartoonChipBlue" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#75bdf5"/>
+                <stop offset="100%" stop-color="#3e87d4"/>
+              </linearGradient>
+            </defs>
+            <g fill="none" stroke="#2b67b1" stroke-width="7" stroke-linecap="round">
+              <path d="M62 133v23M124 133v23"/>
+              <path d="M36 88H16M36 108H20M150 88h20M150 108h16"/>
+              <path d="M70 36V18M118 36V18"/>
+              <path d="M88 17h12"/>
+            </g>
+            <rect x="30" y="33" width="128" height="106" rx="27" fill="url(#cartoonChipBlue)" stroke="#2b67b1" stroke-width="5"/>
+            <rect x="51" y="52" width="86" height="68" rx="17" fill="#eef7ff"/>
+            <circle cx="78" cy="82" r="6" fill="#162629"/>
+            <circle cx="110" cy="82" r="6" fill="#162629"/>
+            <path d="M77 101c7 8 27 8 34 0" fill="none" stroke="#2b67b1" stroke-width="5" stroke-linecap="round"/>
+            <circle cx="55" cy="48" r="5" fill="#efbd4c"/>
+            <path d="M141 132c9 7 15 5 20-2" fill="none" stroke="#2b67b1" stroke-width="5" stroke-linecap="round"/>
+          </svg>
+          <svg class="cartoon-spark" viewBox="0 0 90 90" aria-hidden="true">
+            <path d="M45 5l8 24 25 8-25 8-8 25-8-25-25-8 25-8z" fill="#75bdf5" opacity="0.92"/>
+            <path d="M76 60l3 8 8 3-8 3-3 8-3-8-8-3 8-3z" fill="#2b67b1" opacity="0.82"/>
+            <path d="M14 18h14M21 11v14" stroke="#4a9fe8" stroke-width="4" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <section class="identity-strip" aria-label="基本信息">
+      <div class="identity-grid shell">
+        <div class="identity-item reveal">
+          <span class="identity-label">来自</span>
+          <p class="identity-value">广东梅州</p>
+        </div>
+        <div class="identity-item reveal">
+          <span class="identity-label">就读</span>
+          <p class="identity-value">广东工业大学集成电路学院</p>
+        </div>
+        <div class="identity-item reveal">
+          <span class="identity-label">专业班级</span>
+          <p class="identity-value">集成电路设计与集成系统创新班</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="shell">
+        <div class="section-heading reveal">
+          <span class="section-kicker">ABOUT ME</span>
+          <h2>保持温和，也保持好奇</h2>
+          <p>我喜欢理解事物背后的原理，也珍惜人与人之间真诚、轻松的交流。</p>
+        </div>
+
+        <div class="about-layout">
+          <p class="about-note reveal">在广工找到方向，把长期目标落到芯片制造。</p>
+          <div class="about-text">
+            <p class="reveal">
+              我是古焱玲，来自广东梅州，现就读于广东工业大学集成电路学院集成电路设计与集成系统创新班。
+              进入广工对我来说不只是开始一段新的学习经历，也是寻找方向、建立能力、逐步靠近梦想的过程。
+              在专业学习中，我对集成电路和系统设计保持着持续的兴趣，也愿意一步步打牢基础、拓展视野。
+            </p>
+            <p class="reveal">
+              我希望从数理基础、电路思维、编程能力和工程实践出发，逐渐形成自己的专业能力体系。
+              未来，我希望把长期方向聚焦到芯片制造，在持续学习和真实实践中理解工艺、器件与制造流程，
+              并找到自己能够长期深耕的位置。
+            </p>
+            <p class="reveal">
+              我的性格比较温和，喜欢与人聊天，也享受独处时阅读和思考的时间。
+              运动让我保持活力，音乐和旅行让我接触不同的生活节奏，心理学与物理学则让我对人和世界始终保持好奇。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-with-stars" id="goals">
+      <svg class="section-stars" viewBox="0 0 1200 620" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <g fill="#75bdf5">
+          <path class="star-twinkle" d="M105 78l7 18 20 2-15 14 4 20-16-10-16 10 4-20-15-14 20-2z"/>
+          <path class="star-twinkle" style="animation-delay:-1.4s" d="M1028 112l8 21 23 3-17 16 5 23-19-12-19 12 5-23-17-16 23-3z"/>
+          <path class="star-twinkle" style="animation-delay:-2.2s" d="M1090 516l5 14 15 2-11 10 3 15-12-8-12 8 3-15-11-10 15-2z"/>
+        </g>
+        <g fill="none" stroke="#4a9fe8" stroke-width="3" stroke-linecap="round" opacity="0.55">
+          <path d="M180 145h18M189 136v18"/>
+          <path d="M918 420h22M929 409v22"/>
+          <path d="M62 390l16 16M78 390l-16 16"/>
+        </g>
+      </svg>
+      <div class="shell">
+        <div class="section-heading reveal">
+          <span class="section-kicker">
+            <svg class="title-star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.8l3.1 6.4 7.1 1-5.1 5 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5.1-5 7.1-1z"/></svg>
+            GOALS & DIRECTION
+          </span>
+          <h2>进入广工，找到方向，追梦芯片制造</h2>
+          <p>
+            我的目标不是停留在兴趣上，而是希望在大学阶段不断尝试、选择和积累，
+            最终把个人成长与芯片制造这一长期方向连接起来。
+          </p>
+        </div>
+
+        <blockquote class="goal-statement reveal">
+          在广工找到属于自己的方向，把每一次课程、思考和实践都变成靠近梦想的台阶，
+          并长期致力于芯片制造领域。
+        </blockquote>
+
+        <div class="goal-track">
+          <article class="goal-step reveal">
+            <span class="goal-index">01 / 扎根</span>
+            <h3>适应大学，打牢基础</h3>
+            <p>
+              认真投入课程学习，重视数学、物理、电路与编程等基础能力，
+              建立稳定、扎实的学习节奏。
+            </p>
+          </article>
+          <article class="goal-step reveal">
+            <span class="goal-index">02 / 探索</span>
+            <h3>多尝试，寻找方向</h3>
+            <p>
+              通过专业课程、工程实践和与老师同学的交流，认识集成电路的不同方向，
+              逐步找到真正适合自己、愿意长期投入的领域。
+            </p>
+          </article>
+          <article class="goal-step reveal">
+            <span class="goal-index">03 / 聚焦</span>
+            <h3>走向芯片制造</h3>
+            <p>
+              把长期目标聚焦于芯片制造，持续了解工艺、器件、材料与制造流程，
+              努力把理论理解转化为工程能力。
+            </p>
+          </article>
+          <article class="goal-step reveal">
+            <span class="goal-index">04 / 追梦</span>
+            <h3>持续深耕，创造价值</h3>
+            <p>
+              希望未来能够在芯片制造相关领域持续学习和实践，
+              用耐心、责任感和专业能力回应自己的目标。
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-with-stars" id="learning">
+      <svg class="section-stars" viewBox="0 0 1200 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <g fill="#4a9fe8">
+          <path class="star-twinkle" d="M95 84l6 17 19 2-14 13 4 19-15-9-16 9 4-19-14-13 19-2z"/>
+          <path class="star-twinkle" style="animation-delay:-1s" d="M1065 172l8 22 24 3-18 16 5 23-19-12-20 12 5-23-18-16 24-3z"/>
+          <path class="star-twinkle" style="animation-delay:-2.6s" d="M145 760l5 14 16 2-12 11 3 16-13-8-12 8 3-16-12-11 16-2z"/>
+          <path class="star-twinkle" style="animation-delay:-1.8s" d="M1068 745l6 16 18 2-14 13 4 18-14-9-15 9 4-18-14-13 18-2z"/>
+        </g>
+        <g fill="none" stroke="#75bdf5" stroke-width="3" stroke-linecap="round" opacity="0.6">
+          <path d="M159 148h20M169 138v20"/>
+          <path d="M969 262l20 20M989 262l-20 20"/>
+          <path d="M220 705h24M232 693v24"/>
+        </g>
+      </svg>
+      <div class="shell">
+        <div class="section-heading reveal">
+          <span class="section-kicker">
+            <svg class="title-star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.8l3.1 6.4 7.1 1-5.1 5 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5.1-5 7.1-1z"/></svg>
+            LEARNING MAP
+          </span>
+          <h2>围绕芯片制造，建立一条学习路线</h2>
+          <p>
+            我希望大学学习不只停留在课程分数，而是围绕芯片制造建立一条持续推进的路线：
+            先理解基本物理与电路，再逐步接触器件、工艺、工具和工程实践。
+          </p>
+        </div>
+
+        <div class="learning-intro">
+          <p class="learning-note reveal">
+            先把基础学扎实，再把知识放进芯片制造的真实流程里理解。
+          </p>
+          <p class="learning-copy reveal">
+            芯片制造不是单一知识点，它连接了物理、材料、器件、工艺、设备、质量与团队协作。
+            因此，我希望从基础课程出发，逐步建立跨学科的联系，并通过实验、项目和交流检验自己的理解。
+            现阶段不急于给自己贴上固定的标签，而是把每一个学习环节都当作寻找方向的过程。
+          </p>
+        </div>
+
+        <div class="knowledge-grid">
+          <article class="knowledge-item reveal">
+            <span class="knowledge-index">01 / FOUNDATION</span>
+            <h3>数理基础</h3>
+            <p>重视数学、物理与逻辑训练，为理解半导体器件、电路模型和制造工艺中的规律打基础。</p>
+          </article>
+          <article class="knowledge-item reveal">
+            <span class="knowledge-index">02 / CIRCUIT</span>
+            <h3>电路与器件</h3>
+            <p>持续学习电路分析、模拟与数字电路、半导体器件，理解芯片从原理到功能的过程。</p>
+          </article>
+          <article class="knowledge-item reveal">
+            <span class="knowledge-index">03 / TOOLS</span>
+            <h3>编程与工具</h3>
+            <p>逐步熟悉编程、Linux、EDA 和硬件描述语言等工具，让想法能够通过工程方式被验证。</p>
+          </article>
+          <article class="knowledge-item reveal">
+            <span class="knowledge-index">04 / FAB</span>
+            <h3>芯片制造</h3>
+            <p>关注晶圆、光刻、刻蚀、薄膜、掺杂、封装与测试等环节，建立对制造全流程的认识。</p>
+          </article>
+          <article class="knowledge-item reveal">
+            <span class="knowledge-index">05 / ENGINEERING</span>
+            <h3>工程素养</h3>
+            <p>练习问题拆解、实验记录、资料查阅、团队协作和复盘，让学习逐渐接近真实工程。</p>
+          </article>
+        </div>
+
+        <div class="chip-chain">
+          <article class="chain-step reveal">
+            <span>01</span>
+            <h3>设计定义功能</h3>
+            <p>从需求出发，理解电路和系统如何表达功能、性能与限制。</p>
+          </article>
+          <article class="chain-step reveal">
+            <span>02</span>
+            <h3>制造形成实体</h3>
+            <p>通过材料、设备和工艺步骤，把设计逐步转化为真实芯片。</p>
+          </article>
+          <article class="chain-step reveal">
+            <span>03</span>
+            <h3>封装连接保护</h3>
+            <p>让芯片与外部系统稳定连接，并适应不同应用环境。</p>
+          </article>
+          <article class="chain-step reveal">
+            <span>04</span>
+            <h3>测试验证质量</h3>
+            <p>通过检测与分析判断芯片是否可靠，推动问题回到设计和工艺中改进。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-with-stars" id="interests">
+      <svg class="section-stars" viewBox="0 0 1200 650" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <g fill="#75bdf5">
+          <path class="star-twinkle" d="M980 86l7 19 21 2-16 15 4 21-16-10-17 10 4-21-16-15 21-2z"/>
+          <path class="star-twinkle" style="animation-delay:-1.7s" d="M86 470l5 14 16 2-12 11 3 16-12-8-13 8 3-16-12-11 16-2z"/>
+        </g>
+        <g fill="none" stroke="#4a9fe8" stroke-width="3" stroke-linecap="round" opacity="0.5">
+          <path d="M107 105h20M117 95v20"/>
+          <path d="M1035 492l18 18M1053 492l-18 18"/>
+        </g>
+      </svg>
+      <div class="shell">
+        <div class="section-heading reveal">
+          <span class="section-kicker">
+            <svg class="title-star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.8l3.1 6.4 7.1 1-5.1 5 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5.1-5 7.1-1z"/></svg>
+            INTERESTS
+          </span>
+          <h2>运动、思考与看世界</h2>
+          <p>兴趣不是标签，而是我保持能量、认识自己和理解世界的几种方式。</p>
+        </div>
+
+        <div class="interest-grid">
+          <article class="interest-card reveal">
+            <span class="interest-number">01 / MOVE</span>
+            <h3>运动与节奏</h3>
+            <p>喜欢乒乓球、羽毛球和跑步。喜欢运动带来的专注、轻快，以及与朋友并肩投入的过程。</p>
+          </article>
+          <article class="interest-card reveal">
+            <span class="interest-number">02 / THINK</span>
+            <h3>心理学与物理学</h3>
+            <p>对心理学与物理学保持兴趣，喜欢从不同尺度观察人与世界，理解感受、规律和因果关系。</p>
+          </article>
+          <article class="interest-card reveal">
+            <span class="interest-number">03 / EXPLORE</span>
+            <h3>音乐、聊天与旅行</h3>
+            <p>喜欢音乐、与人聊天和旅行。愿意听见不同的故事，也愿意走进新的环境，积累对生活的感受。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-with-stars" id="actions">
+      <svg class="section-stars" viewBox="0 0 1200 850" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <g fill="#4a9fe8">
+          <path class="star-twinkle" d="M110 88l7 19 20 2-15 14 4 20-16-10-16 10 4-20-15-14 20-2z"/>
+          <path class="star-twinkle" style="animation-delay:-1.2s" d="M1068 150l6 16 17 2-13 12 4 17-14-9-14 9 4-17-13-12 17-2z"/>
+          <path class="star-twinkle" style="animation-delay:-2.4s" d="M1110 720l8 21 23 3-17 16 5 23-19-12-20 12 5-23-17-16 23-3z"/>
+        </g>
+        <g fill="none" stroke="#75bdf5" stroke-width="3" stroke-linecap="round" opacity="0.55">
+          <path d="M150 740h20M160 730v20"/>
+          <path d="M1010 520l18 18M1028 520l-18 18"/>
+        </g>
+      </svg>
+      <div class="shell">
+        <div class="section-heading reveal">
+          <span class="section-kicker">
+            <svg class="title-star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.8l3.1 6.4 7.1 1-5.1 5 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5.1-5 7.1-1z"/></svg>
+            GROWTH PLAN
+          </span>
+          <h2>把目标落到每一天的行动里</h2>
+          <p>梦想需要具体的行动承接。大学阶段，我希望把长期目标拆成能够逐步完成的六件事。</p>
+        </div>
+
+        <div class="action-layout">
+          <aside class="action-summary reveal">
+            <h3>方向不是一次决定，而是一路积累出来的</h3>
+            <p>
+              我会允许自己探索，也会对真正重要的方向保持耐心。
+              比起急于得到答案，更重要的是让基础、实践和思考不断互相验证。
+            </p>
+          </aside>
+
+          <div class="action-list">
+            <article class="action-item reveal">
+              <span class="action-number">01</span>
+              <div>
+                <h3>把基础课程学扎实</h3>
+                <p>认真对待数学、物理、电路和编程，不用短期分数代替长期理解。</p>
+              </div>
+            </article>
+            <article class="action-item reveal">
+              <span class="action-number">02</span>
+              <div>
+                <h3>形成工程学习习惯</h3>
+                <p>主动查资料、做笔记、记录实验过程，并定期复盘自己的问题。</p>
+              </div>
+            </article>
+            <article class="action-item reveal">
+              <span class="action-number">03</span>
+              <div>
+                <h3>逐步接触专业工具</h3>
+                <p>了解编程、Linux、EDA 和硬件描述语言，为后续课程与实践做准备。</p>
+              </div>
+            </article>
+            <article class="action-item reveal">
+              <span class="action-number">04</span>
+              <div>
+                <h3>理解芯片制造全流程</h3>
+                <p>从设计、晶圆制造、封装到测试，建立完整而不过度割裂的认识。</p>
+              </div>
+            </article>
+            <article class="action-item reveal">
+              <span class="action-number">05</span>
+              <div>
+                <h3>寻找真实实践机会</h3>
+                <p>关注课程项目、竞赛、讲座和实验室机会，在行动中验证自己的兴趣。</p>
+              </div>
+            </article>
+            <article class="action-item reveal">
+              <span class="action-number">06</span>
+              <div>
+                <h3>保持稳定的身心状态</h3>
+                <p>用运动、音乐和交流调节节奏，让自己能够长期、稳定地投入目标。</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-with-stars" id="personality">
+      <svg class="section-stars" viewBox="0 0 1200 620" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <g fill="#75bdf5">
+          <path class="star-twinkle" d="M1020 92l7 18 20 2-15 14 4 20-16-10-16 10 4-20-15-14 20-2z"/>
+          <path class="star-twinkle" style="animation-delay:-1.5s" d="M115 500l6 16 18 2-14 13 4 18-14-9-15 9 4-18-14-13 18-2z"/>
+        </g>
+        <g fill="none" stroke="#4a9fe8" stroke-width="3" stroke-linecap="round" opacity="0.55">
+          <path d="M120 108h20M130 98v20"/>
+          <path d="M1060 492l18 18M1078 492l-18 18"/>
+        </g>
+      </svg>
+      <div class="shell">
+        <div class="section-heading reveal">
+          <span class="section-kicker">
+            <svg class="title-star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.8l3.1 6.4 7.1 1-5.1 5 1.2 7-6.3-3.3-6.3 3.3 1.2-7-5.1-5 7.1-1z"/></svg>
+            PERSONALITY
+          </span>
+          <h2>温和，也愿意认真把一件事做久</h2>
+          <p>我希望在学习和合作中保持真诚、耐心，也保留对世界持续发问的能力。</p>
+        </div>
+
+        <div class="personality-grid">
+          <article class="personality-item reveal">
+            <h3>温和而坚定</h3>
+            <p>
+              我习惯用平和的方式与人相处，但面对真正想完成的事情，也愿意持续投入。
+              不追求表面的热闹，更看重稳定、长期和真实的进步。
+            </p>
+          </article>
+          <article class="personality-item reveal">
+            <h3>享受交流，也珍惜独处</h3>
+            <p>
+              我喜欢与人聊天，从不同经历中获得新的视角；也需要安静阅读和思考的时间，
+              让自己整理感受、理解问题和重新出发。
+            </p>
+          </article>
+          <article class="personality-item reveal">
+            <h3>重感受，也重原理</h3>
+            <p>
+              心理学让我关注人的情绪与关系，物理学让我好奇事物背后的规律。
+              我希望既有理解他人的柔软，也有面对工程问题时追根究底的严谨。
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section contact-band" id="contact">
+      <div class="contact-layout shell">
+        <div class="contact-copy reveal">
+          <span class="section-kicker">CONTACT</span>
+          <h2>很高兴认识你</h2>
+          <p>如果想聊学习、兴趣或生活，欢迎通过电话或微信联系我。</p>
+        </div>
+
+        <div class="contact-list reveal">
+          <div class="contact-row">
+            <span class="contact-label">电话</span>
+            <span class="contact-value"><a href="tel:19820756562">19820756562</a></span>
+            <button class="copy-button" type="button" data-copy="19820756562">复制</button>
+          </div>
+          <div class="contact-row">
+            <span class="contact-label">微信</span>
+            <span class="contact-value">gdmxdszx2026</span>
+            <button class="copy-button" type="button" data-copy="gdmxdszx2026">复制</button>
+          </div>
+          <div class="contact-row">
+            <span class="contact-label">所在地</span>
+            <span class="contact-value">广东梅州</span>
+            <span aria-hidden="true"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner shell">
+      <span>古焱玲 · 广东工业大学集成电路学院</span>
+      <span>© <span id="year">2026</span></span>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">已复制</div>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const toast = document.getElementById("toast");
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      let toastTimer = 0;
+
+      document.getElementById("year").textContent = String(new Date().getFullYear());
+
+      async function copyText(value) {
+        try {
+          await navigator.clipboard.writeText(value);
+        } catch {
+          const input = document.createElement("textarea");
+          input.value = value;
+          input.setAttribute("readonly", "");
+          input.style.position = "fixed";
+          input.style.opacity = "0";
+          document.body.appendChild(input);
+          input.select();
+          document.execCommand("copy");
+          input.remove();
+        }
+
+        window.clearTimeout(toastTimer);
+        toast.classList.add("visible");
+        toastTimer = window.setTimeout(() => {
+          toast.classList.remove("visible");
+        }, 1500);
+      }
+
+      document.querySelectorAll("[data-copy]").forEach((button) => {
+        button.addEventListener("click", () => {
+          copyText(button.dataset.copy);
+        });
+      });
+
+      const revealItems = Array.from(document.querySelectorAll(".reveal"));
+      if (reducedMotion || !("IntersectionObserver" in window)) {
+        revealItems.forEach((item) => item.classList.add("visible"));
+        return;
+      }
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.14,
+        rootMargin: "0px 0px -40px"
+      });
+
+      revealItems.forEach((item, index) => {
+        item.style.transitionDelay = Math.min(index % 4, 3) * 55 + "ms";
+        observer.observe(item);
+      });
+    })();
+  </script>
+</body>
+</html>
