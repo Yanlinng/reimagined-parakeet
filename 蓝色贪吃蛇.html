@@ -5,14 +5,49 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BLUE SNAKE · 蓝色贪吃蛇</title>
 <style>
+  /* ===== 主题变量：默认深色，body[data-theme="light"] 切浅色 ===== */
+  :root {
+    --page-bg: radial-gradient(ellipse at 50% -20%, #123a6e 0%, #0a1e3f 45%, #050d1f 100%);
+    --text: #dbe9ff; --text-dim: #7ea6d8; --label: #6f97c9; --tips: #5d82b4;
+    --accent: #8fd0ff; --accent-2: #4a9eff; --gold: #ffd27a;
+    --value-glow: rgba(78,158,255,.55);
+    --panel-bg: linear-gradient(160deg, rgba(70,130,220,.35), rgba(30,60,130,.15));
+    --panel-ring: rgba(110,170,255,.28); --panel-glow: rgba(40,110,220,.28);
+    --panel-shadow: rgba(0,10,30,.6);
+    --canvas-bg: #071428;
+    --card-bg: rgba(9,23,46,.97); --card-shadow: rgba(0,8,24,.7);
+    --overlay-bg: rgba(5,13,31,.85);
+    --chip-bg: rgba(30,70,140,.4); --chip-border: rgba(100,160,255,.4); --chip-text: #9cc6ff;
+    --btn-bg: rgba(40,90,170,.5); --btn-border: rgba(110,170,255,.4);
+    --btn-text: #cfe6ff; --btn-hover: rgba(60,120,210,.65);
+    --title-grad: linear-gradient(90deg, #4a9eff, #8fd0ff, #4a9eff);
+    --row-line: rgba(100,160,255,.18);
+  }
+  body[data-theme="light"] {
+    --page-bg: radial-gradient(ellipse at 50% -20%, #ffffff 0%, #ecf4ff 45%, #dce9fb 100%);
+    --text: #11335a; --text-dim: #47709e; --label: #6b93bf; --tips: #5f7f9f;
+    --accent: #2E7CC9; --accent-2: #2E7CC9; --gold: #b9800c;
+    --value-glow: rgba(46,124,201,.28);
+    --panel-bg: linear-gradient(160deg, rgba(255,255,255,.95), rgba(224,238,255,.8));
+    --panel-ring: rgba(46,124,201,.35); --panel-glow: rgba(90,160,240,.4);
+    --panel-shadow: rgba(40,90,150,.2);
+    --canvas-bg: #f2f8ff;
+    --card-bg: rgba(255,255,255,.98); --card-shadow: rgba(40,90,150,.3);
+    --overlay-bg: rgba(240,247,255,.92);
+    --chip-bg: rgba(46,124,201,.10); --chip-border: rgba(46,124,201,.38); --chip-text: #2E7CC9;
+    --btn-bg: rgba(46,124,201,.10); --btn-border: rgba(46,124,201,.38);
+    --btn-text: #245f9e; --btn-hover: rgba(46,124,201,.22);
+    --title-grad: linear-gradient(90deg, #2E7CC9, #79b4ea, #2E7CC9);
+    --row-line: rgba(46,124,201,.18);
+  }
+
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
     font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
-    min-height: 100vh;
-    display: flex; align-items: center; justify-content: center;
-    background: radial-gradient(ellipse at 50% -20%, #123a6e 0%, #0a1e3f 45%, #050d1f 100%);
-    color: #dbe9ff; overflow: hidden;
+    background: var(--page-bg);
+    color: var(--text);
+    transition: background .35s ease, color .35s ease;
   }
   body::before {
     content: ""; position: fixed; inset: 0; pointer-events: none;
@@ -21,17 +56,20 @@
       radial-gradient(1px 1px at 70% 60%, rgba(120,180,255,.30) 50%, transparent 100%),
       radial-gradient(2px 2px at 40% 80%, rgba(100,160,255,.25) 50%, transparent 100%),
       radial-gradient(1px 1px at 85% 20%, rgba(160,210,255,.30) 50%, transparent 100%);
+    transition: opacity .35s ease;
   }
+  body[data-theme="light"]::before { opacity: 0; }
 
   .wrap {
     position: relative; z-index: 1;
-    display: flex; flex-direction: column; align-items: center; gap: 15px;
-    padding: 20px;
+    min-height: 100vh; margin: 0 auto;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 13px;
+    padding: 18px;
   }
 
   h1 {
     font-size: 24px; font-weight: 800; letter-spacing: 9px; text-indent: 9px;
-    background: linear-gradient(90deg, #4a9eff, #8fd0ff, #4a9eff);
+    background: var(--title-grad);
     background-size: 200% 100%;
     -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
     animation: shimmer 4s linear infinite;
@@ -40,89 +78,133 @@
 
   .hud { width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 10px; }
   .stat { display: flex; flex-direction: column; gap: 2px; }
-  .stat .label { font-size: 10px; letter-spacing: 3px; color: #6f97c9; }
+  .stat .label { font-size: 10px; letter-spacing: 3px; color: var(--label); }
   .stat .value {
-    font-size: 24px; font-weight: 700; color: #8fd0ff; font-variant-numeric: tabular-nums;
-    text-shadow: 0 0 18px rgba(78,158,255,.55); display: inline-block;
+    font-size: 24px; font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums;
+    text-shadow: 0 0 18px var(--value-glow); display: inline-block;
   }
-  .stat .value.best { color: #ffd27a; text-shadow: 0 0 18px rgba(255,200,100,.4); }
+  .stat .value.best { color: var(--gold); text-shadow: 0 0 18px rgba(255,200,100,.35); }
   .stat.right { text-align: right; }
   @keyframes pop { 0% { transform: scale(1); } 32% { transform: scale(1.5); } 100% { transform: scale(1); } }
   .value.pop { animation: pop .4s cubic-bezier(.2,1.6,.4,1); }
 
   .mid { display: flex; flex-direction: column; align-items: center; gap: 5px; }
-  .speed-tag {
+  .speed-tag, .ai-tag {
     font-size: 11px; letter-spacing: 2px; padding: 5px 14px; border-radius: 999px;
-    border: 1px solid rgba(100,160,255,.4); background: rgba(30,70,140,.4);
-    color: #9cc6ff; user-select: none; white-space: nowrap; transition: all .25s;
+    border: 1px solid var(--chip-border); background: var(--chip-bg);
+    color: var(--chip-text); user-select: none; white-space: nowrap; transition: all .25s;
   }
-  .speed-tag.up { color: #ffe0a0; border-color: rgba(255,200,110,.8); }
-  .combo-tag { font-size: 10px; letter-spacing: 2px; color: #ffd76a; opacity: 0; transition: opacity .25s; white-space: nowrap; }
+  .speed-tag.up { color: #ffb94d; border-color: rgba(255,200,110,.8); }
+  .combo-tag { font-size: 10px; letter-spacing: 2px; color: #e8a93a; opacity: 0; transition: opacity .25s; white-space: nowrap; }
   .combo-tag.on { opacity: 1; }
 
   .board-frame {
     position: relative; padding: 10px; border-radius: 22px;
-    background: linear-gradient(160deg, rgba(70,130,220,.35), rgba(30,60,130,.15));
+    background: var(--panel-bg);
     box-shadow:
-      0 0 0 1px rgba(110,170,255,.28),
-      0 0 60px rgba(40,110,220,.28),
-      0 30px 70px rgba(0,10,30,.6);
+      0 0 0 1px var(--panel-ring),
+      0 0 60px var(--panel-glow),
+      0 30px 70px var(--panel-shadow);
     will-change: transform;
+    transition: background .35s ease, box-shadow .35s ease;
   }
-  canvas { display: block; border-radius: 14px; background: #071428; }
+  canvas { display: block; border-radius: 14px; background: var(--canvas-bg); transition: background .35s ease; }
 
   .overlay {
     position: absolute; inset: 10px; border-radius: 14px;
-    background: rgba(5,13,31,.85); backdrop-filter: blur(6px);
+    background: var(--overlay-bg); backdrop-filter: blur(6px);
     display: flex; flex-direction: column; align-items: center; justify-content: center;
     gap: 12px; text-align: center;
     opacity: 0; pointer-events: none; transition: opacity .3s;
   }
   .overlay.show { opacity: 1; pointer-events: auto; }
   .overlay .big {
-    font-size: 30px; font-weight: 800; letter-spacing: 5px; color: #bfe0ff;
-    text-shadow: 0 0 30px rgba(90,160,255,.7);
+    font-size: 30px; font-weight: 800; letter-spacing: 5px; color: var(--accent);
+    text-shadow: 0 0 30px var(--value-glow);
   }
-  .overlay .sub { font-size: 13px; color: #7ea6d8; letter-spacing: 1px; line-height: 1.8; }
+  .overlay .sub { font-size: 13px; color: var(--text-dim); letter-spacing: 1px; line-height: 1.8; }
 
   button {
     padding: 9px 20px; font-size: 12px; font-weight: 700; letter-spacing: 2px;
-    color: #cfe6ff; background: rgba(40,90,170,.5);
-    border: 1px solid rgba(110,170,255,.4); border-radius: 999px; cursor: pointer;
-    transition: all .15s;
+    color: var(--btn-text); background: var(--btn-bg);
+    border: 1px solid var(--btn-border); border-radius: 999px; cursor: pointer;
+    transition: all .15s; font-family: inherit;
   }
-  button:hover { background: rgba(60,120,210,.65); color: #fff; }
+  button:hover { background: var(--btn-hover); color: var(--accent); }
   .overlay button {
     margin-top: 4px; padding: 12px 42px; font-size: 15px; letter-spacing: 4px; text-indent: 4px;
     background: linear-gradient(135deg, #2E7CC9, #4a9eff); color: #fff; border: none;
     box-shadow: 0 0 24px rgba(74,158,255,.5), inset 0 1px 0 rgba(255,255,255,.25);
   }
-  .overlay button:hover { transform: translateY(-2px) scale(1.03); }
+  .overlay button:hover { transform: translateY(-2px) scale(1.03); color: #fff; }
 
-  .tips { font-size: 11px; letter-spacing: 1.5px; color: #5d82b4; display: flex; gap: 18px; flex-wrap: wrap; justify-content: center; }
-  .tips b { color: #8fb8e8; }
+  .tips { font-size: 11px; letter-spacing: 1.5px; color: var(--tips); display: flex; gap: 18px; flex-wrap: wrap; justify-content: center; }
+  .tips b { color: var(--text-dim); }
 
-  /* AI 托管控制条 */
-  .controls { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: center; }
-  .controls button { padding: 9px 22px; font-size: 12px; letter-spacing: 3px; text-indent: 3px; }
+  /* 控制条 + 数据条 */
+  .controls { display: flex; align-items: center; gap: 9px; flex-wrap: wrap; justify-content: center; }
+  .controls button { padding: 9px 18px; font-size: 12px; letter-spacing: 2px; text-indent: 2px; }
   .controls button.on {
     background: linear-gradient(135deg, #2E7CC9, #4a9eff);
     color: #fff; border-color: transparent;
-    box-shadow: 0 0 20px rgba(74,158,255,.6);
+    box-shadow: 0 0 20px rgba(74,158,255,.55);
   }
-  .ai-tag {
-    font-size: 11px; letter-spacing: 2px; padding: 6px 15px; border-radius: 999px;
-    border: 1px solid rgba(100,160,255,.35); background: rgba(30,70,140,.35);
-    color: #7ea6d8; user-select: none; white-space: nowrap; transition: all .25s;
+  .controls button.danger-on { background: rgba(200,60,80,.75); color: #fff; border-color: transparent; }
+
+  .stats-bar {
+    display: flex; gap: 14px; flex-wrap: wrap; justify-content: center;
+    font-size: 11px; letter-spacing: 1.5px; color: var(--label);
   }
-  .ai-tag.slim { letter-spacing: 1.5px; color: #5d82b4; border-style: dashed; }
-  .ai-tag.thinking { color: #8fd0ff; border-color: rgba(120,190,255,.75); }
-  .ai-tag.warn { color: #ffcf8a; border-color: rgba(255,190,110,.7); }
+  .stats-bar b { color: var(--accent); font-weight: 700; }
+  .stats-bar .sep { opacity: .45; }
+
+  .cert {
+    font-size: 10px; letter-spacing: 1.5px; padding: 5px 13px; border-radius: 999px;
+    border: 1px dashed var(--chip-border); color: var(--tips); transition: all .3s;
+  }
+  .cert.done {
+    color: #ffd76a; border-style: solid; border-color: rgba(255,200,110,.75);
+    box-shadow: 0 0 16px rgba(255,200,110,.3);
+  }
 
   .dpad { display: none; grid-template-columns: repeat(3, 56px); grid-template-rows: repeat(3, 56px); gap: 8px; }
   .dpad button { margin: 0; padding: 0; width: 56px; height: 56px; font-size: 19px; letter-spacing: 0; border-radius: 16px; }
   .dpad .blank { visibility: hidden; }
   @media (hover: none) and (pointer: coarse) { .dpad { display: grid; } }
+
+  /* 战绩弹窗 */
+  .modal {
+    position: fixed; inset: 0; z-index: 50;
+    background: rgba(3,9,22,.6); backdrop-filter: blur(4px);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none; transition: opacity .25s;
+  }
+  .modal.show { opacity: 1; pointer-events: auto; }
+  .modal .card {
+    width: min(370px, 88vw); max-height: 72vh; overflow: auto;
+    border-radius: 18px; padding: 18px;
+    background: var(--card-bg); color: var(--text);
+    border: 1px solid var(--panel-ring);
+    box-shadow: 0 24px 70px var(--card-shadow);
+  }
+  .modal h2 {
+    font-size: 14px; letter-spacing: 4px; font-weight: 700; color: var(--accent);
+    margin-bottom: 12px; text-align: center;
+  }
+  .rec-row {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 12px; padding: 7px 2px; border-bottom: 1px dashed var(--row-line);
+    font-variant-numeric: tabular-nums;
+  }
+  .rec-row .idx { width: 34px; color: var(--label); font-size: 11px; }
+  .rec-row .sc { flex: 1; font-weight: 700; color: var(--accent); }
+  .rec-row .who { font-size: 10px; letter-spacing: 1px; padding: 2px 8px; border-radius: 999px;
+    background: var(--chip-bg); border: 1px solid var(--chip-border); color: var(--chip-text); }
+  .rec-row .who.ai { color: #c9a2ff; border-color: rgba(180,140,255,.45); }
+  .rec-row .tm { font-size: 10px; color: var(--label); }
+  .rec-row.top .sc { color: var(--gold); }
+  .rec-empty { font-size: 12px; color: var(--tips); text-align: center; padding: 26px 0; letter-spacing: 1px; }
+  .modal .close-wrap { display: flex; justify-content: center; margin-top: 14px; }
 </style>
 </head>
 <body>
@@ -155,7 +237,24 @@
 
   <div class="controls">
     <button id="aiBtn">AI 托管</button>
+    <button id="themeBtn">主题：浅色</button>
+    <button id="recBtn">战绩</button>
+    <button id="resetBtn">重置统计</button>
+  </div>
+
+  <div class="controls">
     <span class="ai-tag slim" id="aiTag">AI 待机 · 按方向键随时接管</span>
+    <span class="cert" id="certTag">阶段二指标：AI 连吃 0/15</span>
+  </div>
+
+  <div class="stats-bar">
+    <span>第 <b id="roundNo">1</b> 局</span>
+    <span class="sep">|</span>
+    <span>累计局数 <b id="roundsTotal">0</b></span>
+    <span class="sep">|</span>
+    <span>你的最高分 <b id="bestHuman">0</b></span>
+    <span class="sep">|</span>
+    <span>AI 最高分 <b id="bestAi">0</b></span>
   </div>
 
   <div class="tips">
@@ -172,6 +271,15 @@
     <button data-dir="left">◀</button>
     <button data-dir="down">▼</button>
     <button data-dir="right">▶</button>
+  </div>
+</div>
+
+<!-- 战绩弹窗 -->
+<div class="modal" id="modal">
+  <div class="card">
+    <h2>最近战绩</h2>
+    <div id="recList"></div>
+    <div class="close-wrap"><button id="recClose">关 闭</button></div>
   </div>
 </div>
 
@@ -193,15 +301,149 @@
   const ovBtn   = document.getElementById('ovBtn');
   const aiBtn   = document.getElementById('aiBtn');
   const aiTag   = document.getElementById('aiTag');
+  const themeBtn= document.getElementById('themeBtn');
+  const recBtn  = document.getElementById('recBtn');
+  const resetBtn= document.getElementById('resetBtn');
+  const recList = document.getElementById('recList');
+  const recClose= document.getElementById('recClose');
+  const modal   = document.getElementById('modal');
+  const certTag = document.getElementById('certTag');
+  const roundNoEl   = document.getElementById('roundNo');
+  const roundsTotalEl = document.getElementById('roundsTotal');
+  const bestHumanEl = document.getElementById('bestHuman');
+  const bestAiEl    = document.getElementById('bestAi');
 
   let snake, dir, queue, food, score, best, eaten;
   let running, paused, dead;
   let lastTime = 0, acc = 0, growPulse = 0;
   let lastEatAt = 0, combo = 0;
   let aiOn = false, aiPlan = [], aiMode = 'hunt', aiHunger = 0, aiRestartTimer = 0;
+  let aiStreak = 0;           // AI 本局连续吃到水果数（任务书阶段二硬指标）
+  let theme = 'dark';
 
-  best = +(localStorage.getItem('blueSnakeBest') || 0);
-  bestEl.textContent = best;
+  /* ==================== 计分制 / 多局战绩（localStorage 持久化） ==================== */
+
+  const LS_KEY = 'blueSnakeStats';
+
+  let stats = { rounds: 0, bestHuman: 0, bestAi: 0, certified: false, records: [] };
+
+  function loadStats() {
+    try {
+      const raw = localStorage.getItem(LS_KEY);
+      if (raw) {
+        const s = JSON.parse(raw);
+        stats = {
+          rounds: s.rounds | 0,
+          bestHuman: s.bestHuman | 0,
+          bestAi: s.bestAi | 0,
+          certified: !!s.certified,
+          records: Array.isArray(s.records) ? s.records.slice(0, 50) : [],
+        };
+      } else {
+        // 兼容旧版只存最高分的记录
+        stats.bestHuman = +(localStorage.getItem('blueSnakeBest') || 0);
+      }
+    } catch (e) { /* 数据损坏就重来，不让游戏打不开 */ }
+  }
+  function saveStats() {
+    try { localStorage.setItem(LS_KEY, JSON.stringify(stats)); } catch (e) {}
+  }
+
+  // 记一局战绩（新一局自动追加，最多留最近 50 局）
+  function recordRound(sc, isAi) {
+    stats.rounds++;
+    if (isAi) stats.bestAi = Math.max(stats.bestAi, sc);
+    else stats.bestHuman = Math.max(stats.bestHuman, sc);
+    const d = new Date();
+    stats.records.unshift({
+      score: sc,
+      ai: isAi,
+      time: ('0' + d.getHours()).slice(-2) + ':' + ('0' + d.getMinutes()).slice(-2),
+    });
+    if (stats.records.length > 50) stats.records.length = 50;
+    saveStats();
+    paintStats();
+  }
+
+  function paintStats() {
+    roundNoEl.textContent = stats.rounds + 1;
+    roundsTotalEl.textContent = stats.rounds;
+    bestHumanEl.textContent = stats.bestHuman;
+    bestAiEl.textContent = stats.bestAi;
+    best = stats.bestHuman;                 // 界面「最高」显示的是她自己的纪录
+    bestEl.textContent = best;
+    certTag.className = stats.certified ? 'cert done' : 'cert';
+    certTag.textContent = stats.certified
+      ? '✓ 阶段二指标已达成：AI 连吃 15 个（本局 ' + aiStreak + '）'
+      : '阶段二指标：AI 连吃 ' + Math.min(aiStreak, 15) + '/15';
+  }
+
+  function renderRecords() {
+    if (!stats.records.length) {
+      recList.innerHTML = '<div class="rec-empty">还没有战绩，先玩一局吧</div>';
+      return;
+    }
+    const best = Math.max(...stats.records.map(r => r.score));
+    recList.innerHTML = stats.records.map((r, i) =>
+      `<div class="rec-row${r.score === best && i === 0 ? ' top' : ''}">` +
+        `<span class="idx">#${stats.records.length - i}</span>` +
+        `<span class="sc">${r.score} 分</span>` +
+        `<span class="who${r.ai ? ' ai' : ''}">${r.ai ? 'AI' : '你'}</span>` +
+        `<span class="tm">${r.time}</span>` +
+      `</div>`
+    ).join('');
+  }
+
+  /* ==================== 主题切换（深色 / 浅色，刷新后保留） ==================== */
+
+  const CANVAS_THEME = {
+    dark: {
+      bg: ['#081a36', '#060f24'],
+      grid: 'rgba(90,150,230,.10)',
+      headGrad: ['#cfeeff', '#5aabf0', '#2E7CC9'],
+      headGlow: '#4a9eff',
+      bodyFrom: [62, 150, 235], bodyTo: [36, 95, 180], glowK: 46,
+      eye: '#0a1e3f',
+      tailRing: 'rgba(140,200,255,.4)',
+      floatText: '#eaf6ff',
+      haloA: 'rgba(110,190,255,.30)',
+      haloGold: 'rgba(255,215,120,.42)',
+      fruitGlow: 'rgba(130,200,255,.8)',
+      fruitGlowGold: 'rgba(255,215,120,.95)',
+      vignette: 'rgba(120,190,255,',
+      flashA: 'rgba(150,205,255,', flashB: 'rgba(90,170,255,', flashC: 'rgba(255,230,150,',
+      frameShadow: 'rgba(0,10,30,.6)',
+    },
+    light: {
+      bg: ['#f3f9ff', '#dfeafb'],
+      grid: 'rgba(70,120,190,.14)',
+      headGrad: ['#ffffff', '#4a9eff', '#2E7CC9'],
+      headGlow: '#2E7CC9',
+      bodyFrom: [46, 124, 201], bodyTo: [24, 70, 133], glowK: 26,
+      eye: '#ffffff',
+      tailRing: 'rgba(46,124,201,.5)',
+      floatText: '#0f3f6e',
+      haloA: 'rgba(70,150,230,.22)',
+      haloGold: 'rgba(240,180,40,.32)',
+      fruitGlow: 'rgba(46,124,201,.75)',
+      fruitGlowGold: 'rgba(230,160,20,.9)',
+      vignette: 'rgba(90,160,240,',
+      flashA: 'rgba(46,124,201,', flashB: 'rgba(46,124,201,', flashC: 'rgba(235,175,40,',
+      frameShadow: 'rgba(40,90,150,.22)',
+    },
+  };
+
+  function applyTheme(name, persist) {
+    theme = name === 'light' ? 'light' : 'dark';
+    document.body.dataset.theme = theme;
+    themeBtn.textContent = theme === 'dark' ? '主题：浅色' : '主题：深色';
+    if (persist !== false) { try { localStorage.setItem('blueSnakeTheme', theme); } catch (e) {} }
+  }
+
+  loadStats();
+  applyTheme(localStorage.getItem('blueSnakeTheme') || 'dark', false);
+  paintStats();
+
 
   /* ==================== 水果 ==================== */
 
@@ -349,6 +591,10 @@
   const particles = [], rings = [], texts = [];
   let shakeAmp = 0, flashAmp = 0, tiltAmp = 0;
 
+  // 飘字颜色跟着主题走（浅色底上不能用浅色字）
+  const fxText = () => theme === 'light' ? '#0f3f6e' : '#eaf6ff';
+  const fxGold = () => theme === 'light' ? '#b9800c' : '#ffe9a8';
+
   function burst(cellX, cellY, fruit) {
     const cx = cellX * CELL + CELL/2, cy = cellY * CELL + CELL/2;
     const gold = !!fruit.gold;
@@ -369,10 +615,10 @@
     texts.push({
       x: cx, y: cy, vy: -0.9,
       text: '+' + fruit.points + ' ' + fruit.name,
-      life: 1, color: gold ? '#ffe9a8' : '#eaf6ff', size: gold ? 19 : 15,
+      life: 1, color: gold ? fxGold() : fxText(), size: gold ? 19 : 15,
     });
     if (combo >= 2) {
-      texts.push({ x: cx, y: cy - CELL * 1.4, vy: -0.85, text: '连击 x' + combo, life: 1, color: '#ffd76a', size: 14 });
+      texts.push({ x: cx, y: cy - CELL * 1.4, vy: -0.85, text: '连击 x' + combo, life: 1, color: fxGold(), size: 14 });
     }
 
     shakeAmp = Math.max(shakeAmp, gold ? 17 : 8.5 + Math.min(combo, 4) * 1.6);
@@ -416,11 +662,12 @@
     }
     if (flashAmp > 0.01) {
       const f = flashAmp;
+      const T = CANVAS_THEME[theme];
       frame.style.boxShadow =
-        `0 0 0 1px rgba(150,205,255,${(0.28 + f * 0.7).toFixed(2)}),` +
-        `0 0 ${(40 + f * 150).toFixed(0)}px rgba(90,170,255,${(0.3 + f * 0.7).toFixed(2)}),` +
-        `0 0 ${(20 + f * 90).toFixed(0)}px rgba(255,230,150,${(f * 0.5).toFixed(2)}),` +
-        `0 30px 70px rgba(0,10,30,.6)`;
+        `0 0 0 1px ${T.flashA}${(0.28 + f * 0.7).toFixed(2)}),` +
+        `0 0 ${(40 + f * 150).toFixed(0)}px ${T.flashB}${(0.3 + f * 0.7).toFixed(2)}),` +
+        `0 0 ${(20 + f * 90).toFixed(0)}px ${T.flashC}${(f * 0.5).toFixed(2)}),` +
+        `0 30px 70px ${T.frameShadow}`;
       flashAmp *= 0.88;
     } else if (flashAmp !== 0) {
       flashAmp = 0; frame.style.boxShadow = '';
@@ -590,15 +837,16 @@
       aiTag.textContent = 'AI 待机 · 按方向键随时接管';
       return;
     }
+    const streak = aiStreak >= 15 ? ' · 已连吃 ' + aiStreak + ' 个 ✓' : ' · 连吃 ' + aiStreak;
     if (aiMode === 'hunt') {
       aiTag.className = 'ai-tag thinking';
-      aiTag.textContent = aiPlan.length > 8 ? 'AI 托管 · 规划长路线（余 ' + aiPlan.length + ' 步）' : 'AI 托管 · 追踪水果';
+      aiTag.textContent = (aiPlan.length > 8 ? 'AI 托管 · 规划长路线（余 ' + aiPlan.length + ' 步）' : 'AI 托管 · 追踪水果') + streak;
     } else if (aiMode === 'risk') {
       aiTag.className = 'ai-tag thinking';
-      aiTag.textContent = 'AI 托管 · 冒险抄近道';
+      aiTag.textContent = 'AI 托管 · 冒险抄近道' + streak;
     } else {
       aiTag.className = 'ai-tag warn';
-      aiTag.textContent = 'AI 托管 · 求生盘绕中';
+      aiTag.textContent = 'AI 托管 · 求生盘绕中' + streak;
     }
   }
 
@@ -616,12 +864,13 @@
     comboTag.classList.remove('on');
     dead = false; paused = false;
     lastTime = 0; acc = 0; growPulse = 0;
-    aiPlan = []; aiHunger = 0;
+    aiPlan = []; aiHunger = 0; aiStreak = 0;
     particles.length = 0; rings.length = 0; texts.length = 0;
     shakeAmp = 0; flashAmp = 0; tiltAmp = 0;
     frame.style.transform = ''; frame.style.boxShadow = '';
     placeFood();
     paintAiTag();
+    paintStats();
   }
 
   function placeFood() {
@@ -674,16 +923,30 @@
       scoreEl.textContent = score;
       growPulse = 1;
       aiHunger = 0;
+      if (aiOn) {
+        // 阶段二硬指标：AI 连续吃满 15 个水果不死
+        aiStreak++;
+        if (aiStreak >= 15 && !stats.certified) {
+          stats.certified = true;
+          saveStats();
+          texts.push({ x: canvas.width / 2, y: canvas.height * 0.34, vy: -0.55,
+                       text: '✓ 达成 AI 连吃 15 个', life: 1, color: fxGold(), size: 20 });
+          shakeAmp = Math.max(shakeAmp, 14);
+          flashAmp = Math.max(flashAmp, 0.7);
+          rings.push({ x: canvas.width/2, y: canvas.height/2, r: 20, max: 340, life: 1, color: '#ffd76a', w: 3 });
+        }
+      }
       burst(head.x, head.y, food.fruit);
       placeFood();
       if (aiOn) paintAiTag();
+      paintStats();
 
       if (level() > before) {
         speedEl.textContent = 'SPEED ' + (level() + 1);
         speedEl.classList.add('up');
         setTimeout(() => speedEl.classList.remove('up'), 700);
         texts.push({ x: canvas.width/2, y: canvas.height/2, vy: -0.7, text: '⚡ 提速 LV.' + (level() + 1),
-                     life: 1, color: '#ffe6a8', size: 22 });
+                     life: 1, color: fxGold(), size: 22 });
         shakeAmp = Math.max(shakeAmp, 10);
         flashAmp = Math.max(flashAmp, 0.5);
       }
@@ -700,19 +963,21 @@
     dead = true; running = false;
     clearTimeout(aiRestartTimer);
 
-    // AI 打出来的分数不写进她的最高纪录，只当观战
+    // 记一局战绩：新一局自动追加，局数 / 最高分累加不清零
+    recordRound(score, aiOn);
+
+    const humanBest = stats.bestHuman;
     if (aiOn) {
       ovTitle.textContent = reason ? 'AI ' + reason.replace('AI ', '') : 'AI 阵亡';
-      ovSub.innerHTML = `AI 本局 <b style="color:#8fd0ff">${score}</b> 分 · 你的最高纪录仍是 ${best}<br>即将自动重开…`;
+      ovSub.innerHTML = `AI 本局 <b style="color:#8fd0ff">${score}</b> 分 · 连吃 ${aiStreak} 个` +
+                        `<br>你的最高分仍是 ${humanBest} · 即将自动重开…`;
       aiRestartTimer = setTimeout(() => { if (aiOn) { reset(); running = true; overlay.classList.remove('show'); } }, 1700);
-    } else if (score > best) {
-      best = score; bestEl.textContent = best;
-      localStorage.setItem('blueSnakeBest', best);
+    } else if (score >= humanBest && score > 0) {
       ovTitle.textContent = '新纪录！';
-      ovSub.innerHTML = `本局得分 <b style="color:#8fd0ff">${score}</b><br>最高分已刷新`;
+      ovSub.innerHTML = `本局得分 <b style="color:#8fd0ff">${score}</b><br>这是你的第 ${stats.rounds} 局`;
     } else {
       ovTitle.textContent = '游戏结束';
-      ovSub.innerHTML = `本局得分 <b style="color:#8fd0ff">${score}</b> · 最高纪录 ${best}`;
+      ovSub.innerHTML = `本局得分 <b style="color:#8fd0ff">${score}</b> · 你的最高 ${humanBest}`;
     }
 
     ovBtn.textContent = aiOn ? 'AI 重开' : '再来一局';
@@ -746,7 +1011,7 @@
     if (!aiOn) return;
     setAi(false);
     texts.push({ x: canvas.width / 2, y: canvas.height * 0.28, vy: -0.8,
-                 text: '你来！', life: 1, color: '#9fe0ff', size: 20 });
+                 text: '你来！', life: 1, color: theme === 'light' ? '#2E7CC9' : '#9fe0ff', size: 20 });
     shakeAmp = Math.max(shakeAmp, 6);
   }
 
@@ -763,13 +1028,15 @@
   }
 
   function draw(t) {
+    const T = CANVAS_THEME[theme];
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     const bg = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-    bg.addColorStop(0, '#081a36'); bg.addColorStop(1, '#060f24');
+    bg.addColorStop(0, T.bg[0]); bg.addColorStop(1, T.bg[1]);
     ctx.fillStyle = bg;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    ctx.fillStyle = 'rgba(90,150,230,.10)';
+    ctx.fillStyle = T.grid;
     for (let i = 0; i < GRID; i++)
       for (let j = 0; j < GRID; j++)
         ctx.fillRect(i*CELL + CELL/2 - 1, j*CELL + CELL/2 - 1, 2, 2);
@@ -780,8 +1047,8 @@
       ctx.save();
       ctx.setLineDash([3, 5]);
       ctx.lineWidth = 2;
-      ctx.strokeStyle = isSurvive ? 'rgba(255,200,110,.55)' : 'rgba(90,180,255,.5)';
-      ctx.shadowColor = isSurvive ? 'rgba(255,190,90,.7)' : 'rgba(90,170,255,.7)';
+      ctx.strokeStyle = isSurvive ? 'rgba(230,160,40,.6)' : 'rgba(70,150,240,.55)';
+      ctx.shadowColor = isSurvive ? 'rgba(230,160,40,.7)' : 'rgba(70,150,240,.7)';
       ctx.shadowBlur = 8;
       ctx.beginPath();
       ctx.moveTo(snake[0].x*CELL + CELL/2, snake[0].y*CELL + CELL/2);
@@ -800,7 +1067,7 @@
     ctx.save();
     ctx.globalCompositeOperation = 'lighter';
     const halo = ctx.createRadialGradient(fcx, fcy, 0, fcx, fcy, CELL * 0.95);
-    halo.addColorStop(0, F.gold ? 'rgba(255,215,120,.42)' : 'rgba(110,190,255,.30)');
+    halo.addColorStop(0, F.gold ? T.haloGold : T.haloA);
     halo.addColorStop(1, 'rgba(0,0,0,0)');
     ctx.fillStyle = halo;
     ctx.beginPath(); ctx.arc(fcx, fcy, CELL * 0.95, 0, Math.PI * 2); ctx.fill();
@@ -810,7 +1077,8 @@
       ctx.save();
       ctx.translate(fcx, fcy); ctx.rotate(t / 700);
       ctx.globalCompositeOperation = 'lighter';
-      ctx.strokeStyle = 'rgba(255,225,150,.85)'; ctx.lineWidth = 1.6;
+      ctx.strokeStyle = theme === 'dark' ? 'rgba(255,225,150,.85)' : 'rgba(220,160,20,.85)';
+      ctx.lineWidth = 1.6;
       for (let i = 0; i < 6; i++) {
         ctx.rotate(Math.PI / 3);
         ctx.beginPath(); ctx.moveTo(CELL * 0.62, 0); ctx.lineTo(CELL * 0.78, 0); ctx.stroke();
@@ -819,7 +1087,7 @@
     }
 
     ctx.save();
-    ctx.shadowColor = F.gold ? 'rgba(255,215,120,.95)' : 'rgba(130,200,255,.8)';
+    ctx.shadowColor = F.gold ? T.fruitGlowGold : T.fruitGlow;
     ctx.shadowBlur = F.gold ? 24 : 14;
     F.draw(fcx, fcy, fr, F);
     ctx.restore();
@@ -838,15 +1106,15 @@
         ctx.translate(x + CELL/2, y + CELL/2);
         ctx.scale(scale, scale);
         ctx.translate(-(x + CELL/2), -(y + CELL/2));
-        ctx.shadowColor = '#4a9eff'; ctx.shadowBlur = 24;
+        ctx.shadowColor = T.headGlow; ctx.shadowBlur = 24;
         const hg = ctx.createLinearGradient(x, y, x + CELL, y + CELL);
-        hg.addColorStop(0, '#cfeeff'); hg.addColorStop(0.5, '#5aabf0'); hg.addColorStop(1, '#2E7CC9');
+        hg.addColorStop(0, T.headGrad[0]); hg.addColorStop(0.5, T.headGrad[1]); hg.addColorStop(1, T.headGrad[2]);
         ctx.fillStyle = hg;
         roundRect(x + 1, y + 1, CELL - 2, CELL - 2, 8);
         ctx.fill();
         ctx.restore();
 
-        ctx.fillStyle = '#0a1e3f';
+        ctx.fillStyle = T.eye;
         const cx0 = x + CELL/2, cy0 = y + CELL/2;
         const off = CELL*0.16, side = CELL*0.15;
         const e1x = cx0 + dir.x*off + (dir.y !== 0 ? -side : 0);
@@ -856,17 +1124,28 @@
         ctx.beginPath(); ctx.arc(e1x, e1y, 2.2, 0, Math.PI*2); ctx.fill();
         ctx.beginPath(); ctx.arc(e2x, e2y, 2.2, 0, Math.PI*2); ctx.fill();
       } else {
-        const glow = wave * 46;
-        const r = Math.round(62 - k * 26 + glow);
-        const g = Math.round(150 - k * 55 + glow);
-        const b = Math.round(235 - k * 55 + glow * 0.6);
+        const glow = wave * T.glowK;
+        const r = T.bodyFrom[0] + (T.bodyTo[0] - T.bodyFrom[0]) * k + glow;
+        const g = T.bodyFrom[1] + (T.bodyTo[1] - T.bodyFrom[1]) * k + glow;
+        const b = T.bodyFrom[2] + (T.bodyTo[2] - T.bodyFrom[2]) * k + glow * 0.6;
         ctx.save();
-        if (i < 3) { ctx.shadowColor = 'rgba(70,150,255,.8)'; ctx.shadowBlur = 12; }
-        ctx.fillStyle = `rgba(${Math.min(r,255)},${Math.min(g,255)},${Math.min(b,255)},${(0.95 - k*0.32).toFixed(2)})`;
+        if (i < 3) { ctx.shadowColor = T.fruitGlow; ctx.shadowBlur = 12; }
+        ctx.fillStyle = `rgba(${Math.min(r|0,255)},${Math.min(g|0,255)},${Math.min(b|0,255)},${(0.96 - k*0.28).toFixed(2)})`;
         roundRect(x + 2, y + 2, CELL - 4, CELL - 4, 7);
         ctx.fill();
         ctx.restore();
       }
+    }
+
+    // 蛇尾锚点
+    if (n > 1) {
+      const tl = snake[n - 1];
+      ctx.save();
+      ctx.strokeStyle = T.tailRing;
+      ctx.lineWidth = 1.4;
+      roundRect(tl.x*CELL + 4, tl.y*CELL + 4, CELL - 8, CELL - 8, 5);
+      ctx.stroke();
+      ctx.restore();
     }
 
     drawFX();
@@ -876,7 +1155,7 @@
       ctx.globalCompositeOperation = 'lighter';
       const vg = ctx.createRadialGradient(canvas.width/2, canvas.height/2, canvas.width*0.15,
                                           canvas.width/2, canvas.height/2, canvas.width*0.75);
-      vg.addColorStop(0, `rgba(120,190,255,${(flashAmp*0.20).toFixed(3)})`);
+      vg.addColorStop(0, T.vignette + (flashAmp*0.20).toFixed(3) + ')');
       vg.addColorStop(1, 'rgba(0,0,0,0)');
       ctx.fillStyle = vg;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -954,6 +1233,36 @@
   // AI 托管开关
   aiBtn.addEventListener('click', () => setAi(!aiOn));
 
+  /* ---- 主题切换（一键生效 + 刷新后保留） ---- */
+  themeBtn.addEventListener('click', () => applyTheme(theme === 'dark' ? 'light' : 'dark'));
+
+  /* ---- 多局战绩列表 ---- */
+  recBtn.addEventListener('click', () => { renderRecords(); modal.classList.add('show'); });
+  recClose.addEventListener('click', () => modal.classList.remove('show'));
+  modal.addEventListener('click', e => { if (e.target === modal) modal.classList.remove('show'); });
+
+  /* ---- 重置统计（二次确认，防误触） ---- */
+  let resetArmed = false;
+  function disarmReset() {
+    resetArmed = false;
+    resetBtn.classList.remove('danger-on');
+    resetBtn.textContent = '重置统计';
+  }
+  resetBtn.addEventListener('click', () => {
+    if (!resetArmed) {
+      resetArmed = true;
+      resetBtn.classList.add('danger-on');
+      resetBtn.textContent = '再点一次确认';
+      setTimeout(() => { if (resetArmed) disarmReset(); }, 2600);
+      return;
+    }
+    disarmReset();
+    stats = { rounds: 0, bestHuman: 0, bestAi: 0, certified: false, records: [] };
+    saveStats();
+    paintStats();
+    reset();
+  });
+
   let touchStart = null;
   canvas.addEventListener('touchstart', e => { touchStart = e.touches[0]; }, { passive: true });
   canvas.addEventListener('touchend', e => {
@@ -969,6 +1278,8 @@
   reset();
   running = false;
   paintAiTag();
+  paintStats();
+  renderRecords();
   draw(0);
   requestAnimationFrame(loop);   // 启动渲染循环（否则游戏不会动）
 })();
