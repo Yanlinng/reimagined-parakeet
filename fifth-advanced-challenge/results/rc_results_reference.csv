@@ -1,0 +1,4 @@
+quantity,theoretical,simulated_reference,unit
+cutoff_frequency,994.718186,994.7,Hz
+gain_at_1kHz,-3.008356,-3.0,dB
+phase_at_1kHz,-45.147593,-45.1,deg

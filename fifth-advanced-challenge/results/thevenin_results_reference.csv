@@ -1,0 +1,7 @@
+scenario,quantity,theoretical,simulated_reference,unit
+open_circuit,Voc,8.000000,8.000,V
+short_circuit,Isc,0.006000,0.006,A
+original_with_load,VL,4.800000,4.800,V
+original_with_load,IL,0.002400,0.002400,A
+equivalent_with_load,VL,4.800000,4.800,V
+equivalent_with_load,IL,0.002400,0.002400,A

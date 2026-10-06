@@ -1,0 +1,10 @@
+quantity,theoretical,simulated_reference,unit
+VGS,2.000000,2.000,V
+ID,0.000433070866,0.000433,A
+VDS,4.133858268,4.134,V
+gm,0.000866141732,0.000866,S
+ro,115454.545455,115455,ohm
+Rout,1965.944272,1966,ohm
+Av_magnitude,1.702786378,1.703,V/V
+phase_at_1kHz,-180,-180,deg
+output_amplitude,0.017027864,0.01703,V
