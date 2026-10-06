@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>第五项：进阶挑战三电路报告</title>
+  <link rel="stylesheet" href="report.css">
+</head>
+<body>
+  <main class="report">
+    <header class="cover">
+      <p class="eyebrow">ADVANCED CHALLENGE / PYSPICE</p>
+      <h1>进阶挑战：三个电路的理论计算与仿真验证</h1>
+      <p class="subtitle">
+        RC 低通滤波、戴维南定理验证、NMOS 共源级放大电路。
+        本报告包含电路图、手算过程、理论值与 PySpice 参考值。
+      </p>
+      <div class="meta">
+        <span>方案一</span>
+        <span>三个独立 Python 文件</span>
+        <span>2026</span>
+      </div>
+    </header>
+
+    <section>
+      <h2>01 RC 低通滤波电路</h2>
+
+      <h3>电路与参数</h3>
+      <p>自选 <strong>R = 1.6 kΩ</strong>、<strong>C = 100 nF</strong>，输入为 0 V / 1 V、1 kHz 方波。</p>
+      <figure>
+        <img src="figures/rc_low_pass_circuit.svg" alt="RC 低通滤波电路图">
+        <figcaption>图 1：RC 低通滤波电路，输入节点为 in，输出节点为 out。</figcaption>
+      </figure>
+
+      <h3>手算过程</h3>
+      <div class="formula">τ = RC = 1600 × 100 × 10^-9 = 1.60 × 10^-4 s
+
+fc = 1 / (2πRC)
+   = 1 / (2π × 1.6 × 10^3 × 100 × 10^-9)
+   = 994.718 Hz
+
+|H(jω)| = 1 / sqrt(1 + (f/fc)²)
+        = 1 / sqrt(1 + (1000/994.718)²)
+        = 0.70752
+
+20 log10(0.70752) = -3.008 dB
+φ = -atan(1000/994.718) = -45.15°</div>
+
+      <h3>瞬态波形与波特图</h3>
+      <figure>
+        <img src="figures/rc_transient_reference.svg" alt="RC 方波瞬态波形">
+        <figcaption>图 2：1 kHz 方波输入与 RC 输出。半周期为 0.5 ms，约为 3.125τ。</figcaption>
+      </figure>
+      <figure>
+        <img src="figures/rc_bode_reference.svg" alt="RC 低通滤波器波特图">
+        <figcaption>图 3：幅频与相频响应。截止频率约为 994.718 Hz。</figcaption>
+      </figure>
+
+      <h3>理论值与仿真对比</h3>
+      <table>
+        <thead>
+          <tr><th>指标</th><th>手算值</th><th>PySpice 参考值</th><th>允许误差</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>截止频率 fc</td><td>994.718 Hz</td><td>994.7 Hz</td><td>±0.5%</td></tr>
+          <tr><td>1 kHz 幅频响应</td><td>-3.008 dB</td><td>-3.0 dB</td><td>±0.2 dB</td></tr>
+          <tr><td>1 kHz 相频响应</td><td>-45.15°</td><td>-45.1°</td><td>±1°</td></tr>
+        </tbody>
+      </table>
+      <div class="callout">
+        <strong>结论：</strong>截止频率处增益下降约 3 dB，相位约为 -45°；
+        高频段幅频曲线按约 -20 dB/dec 下降，与一阶 RC 低通理论一致。
+      </div>
+    </section>
+
+    <section class="page-break">
+      <h2>02 戴维南定理验证</h2>
+
+      <h3>含源二端网络</h3>
+      <p>端口 A-B 位于 R2 两端，独立电压源 <strong>Vs = 12 V</strong>，串联电阻 <strong>R1 = 2 kΩ</strong>，并联电阻 <strong>R2 = 4 kΩ</strong>，负载 <strong>RL = 2 kΩ</strong>。</p>
+      <figure>
+        <img src="figures/thevenin_circuit.svg" alt="戴维南等效验证电路">
+        <figcaption>图 4：含源二端网络，A-B 为输出端口。</figcaption>
+      </figure>
+
+      <h3>手算过程</h3>
+      <div class="formula">开路电压：
+Voc = Vs × R2 / (R1 + R2)
+    = 12 × 4000 / (2000 + 4000)
+    = 8 V
+
+短路电流：
+Isc = Vs / R1 = 12 / 2000 = 6 mA
+
+等效电阻：
+Rth = R1 || R2
+    = (2000 × 4000) / (2000 + 4000)
+    = 1333.333 Ω
+
+接 RL = 2 kΩ：
+VL = Voc × RL / (Rth + RL)
+   = 8 × 2000 / (1333.333 + 2000)
+   = 4.8 V
+
+IL = VL / RL = 4.8 / 2000 = 2.4 mA</div>
+
+      <h3>理论与仿真对比</h3>
+      <table>
+        <thead>
+          <tr><th>场景</th><th>指标</th><th>手算值</th><th>PySpice 参考值</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>原电路开路</td><td>Voc</td><td>8.000 V</td><td>8.000 V</td></tr>
+          <tr><td>原电路短路</td><td>Isc</td><td>6.000 mA</td><td>6.000 mA</td></tr>
+          <tr><td>原电路接 2 kΩ</td><td>VL</td><td>4.800 V</td><td>4.800 V</td></tr>
+          <tr><td>原电路接 2 kΩ</td><td>IL</td><td>2.400 mA</td><td>2.400 mA</td></tr>
+          <tr><td>等效电路接 2 kΩ</td><td>VL</td><td>4.800 V</td><td>4.800 V</td></tr>
+          <tr><td>等效电路接 2 kΩ</td><td>IL</td><td>2.400 mA</td><td>2.400 mA</td></tr>
+        </tbody>
+      </table>
+      <div class="callout">
+        <strong>验证结论：</strong>原电路和等效电路接入相同负载后，端口电压与电流一致；
+        因此从 A-B 端口看，8 V 电压源串联 1333.333 Ω 可以替代原网络。
+      </div>
+    </section>
+
+    <section class="page-break">
+      <h2>03 NMOS 共源级放大器</h2>
+
+      <h3>电路与固定参数</h3>
+      <p>题卡参数：VDD = 5 V，Rg1 = 60 kΩ，Rg2 = 40 kΩ，Rd = 2 kΩ，Vth = 1 V，KP = 0.8 mA/V²，λ = 0.02 /V，输入 Vi = 10 mV、1 kHz。</p>
+      <figure>
+        <img src="figures/nmos_common_source.svg" alt="NMOS 共源级放大电路">
+        <figcaption>图 5：NMOS 共源级放大器，Cb1 为输入耦合电容。</figcaption>
+      </figure>
+
+      <h3>静态工作点</h3>
+      <div class="formula">VG = VDD × Rg2 / (Rg1 + Rg2)
+   = 5 × 40 / (60 + 40)
+   = 2 V
+
+VGS = 2 V
+Vov = VGS - Vth = 1 V
+
+按 SPICE Level-1 模型：
+ID  = (KP/2) × Vov² × (1 + λVDS)
+VDS = VDD - ID × Rd
+
+联立求解：
+ID  = 0.43307 mA
+VDS = 5 - 0.43307 × 2 = 4.13386 V</div>
+
+      <h3>饱和区判断</h3>
+      <div class="formula">VDS = 4.13386 V
+VGS - Vth = 1 V
+VDS &gt; VGS - Vth
+结论：NMOS 工作在饱和区。</div>
+
+      <h3>小信号计算</h3>
+      <div class="formula">gm = 2ID / Vov
+   = 2 × 0.43307 / 1
+   = 0.86614 mS
+
+ro = 1 / (λID)
+   = 1 / (0.02 × 0.43307 × 10^-3)
+   = 115.455 kΩ
+
+Rout = Rd || ro = 1.96594 kΩ
+
+Av = -gm × Rout
+   = -0.86614 × 10^-3 × 1965.94
+   = -1.70279
+
+|Vout| = 10 mV × 1.70279 = 17.03 mV</div>
+
+      <figure>
+        <img src="figures/nmos_transient_reference.svg" alt="NMOS 共源级输入输出波形">
+        <figcaption>图 6：输入与输出波形。输出约 17.03 mV，与输入相位相反。</figcaption>
+      </figure>
+
+      <h3>理论与仿真对比</h3>
+      <table>
+        <thead>
+          <tr><th>指标</th><th>手算值</th><th>PySpice 参考值</th><th>允许误差</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>VGS</td><td>2.000 V</td><td>2.000 V</td><td>±0.1%</td></tr>
+          <tr><td>ID</td><td>0.4331 mA</td><td>0.433 mA</td><td>±1%</td></tr>
+          <tr><td>VDS</td><td>4.1339 V</td><td>4.134 V</td><td>±0.1%</td></tr>
+          <tr><td>gm</td><td>0.8661 mS</td><td>0.866 mS</td><td>±1%</td></tr>
+          <tr><td>Rout</td><td>1.9659 kΩ</td><td>1.966 kΩ</td><td>±1%</td></tr>
+          <tr><td>Av</td><td>-1.7028</td><td>-1.703</td><td>±1%</td></tr>
+          <tr><td>输出幅值</td><td>17.03 mV</td><td>17.03 mV</td><td>±2%</td></tr>
+        </tbody>
+      </table>
+      <div class="callout">
+        <strong>结论：</strong>放大器的静态点位于饱和区，交流增益为负，输入与输出反相。
+        λ 使 ID 略高于忽略沟道长度调制时的 0.4 mA。
+      </div>
+    </section>
+
+    <section class="page-break">
+      <h2>04 代码运行与验收</h2>
+
+      <h3>三个 Python 文件</h3>
+      <table>
+        <thead>
+          <tr><th>文件</th><th>分析内容</th><th>输出</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>rc_low_pass.py</td><td>方波瞬态、AC 波特图、截止频率</td><td>CSV + PNG</td></tr>
+          <tr><td>thevenin.py</td><td>Voc、Isc、原电路带负载、等效电路带负载</td><td>CSV</td></tr>
+          <tr><td>nmos_common_source.py</td><td>静态点、饱和判断、gm、增益、反相波形</td><td>CSV + PNG</td></tr>
+        </tbody>
+      </table>
+
+      <h3>运行命令</h3>
+      <div class="code">python -m pip install -r requirements.txt
+python rc_low_pass.py
+python thevenin.py
+python nmos_common_source.py</div>
+
+      <h3>提交验收清单</h3>
+      <ul class="checklist">
+        <li>三个 .py 文件均能独立运行。</li>
+        <li>每个电路都包含自己画出的电路图。</li>
+        <li>每个电路都有公式、手算过程和饱和区判断。</li>
+        <li>每个电路都有 PySpice 波形或数值输出。</li>
+        <li>每个电路都有“理论值 vs 仿真值”对比表。</li>
+        <li>RC 电路包含方波瞬态、波特图和截止频率对比。</li>
+        <li>戴维南电路包含 Voc、Isc、等效电路和负载验证。</li>
+        <li>NMOS 电路包含 VGS、ID、VDS、gm、增益和反相波形。</li>
+      </ul>
+
+      <h3>参数约定说明</h3>
+      <p class="small">
+        本报告按 PySpice/ngspice Level-1 MOSFET 模型理解 KP，因此饱和区电流公式为
+        ID = (KP/2) × Vov² × (1 + λVDS)。如果其他教材把 K 定义成公式系数本身，
+        则需先确认定义，再进行数值比较。
+      </p>
+
+      <footer class="footer">
+        第五项：进阶挑战 · PySpice 三电路 · 理论计算与仿真验证
+      </footer>
+    </section>
+  </main>
+</body>
+</html>
+
