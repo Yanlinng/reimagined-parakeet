@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 500">
+  <style>
+    .wire{fill:none;stroke:#15312d;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+    .component{fill:#fff;stroke:#15312d;stroke-width:3}
+    .value{font:700 18px Segoe UI,sans-serif;fill:#15312d}
+    .note{font:15px Segoe UI,sans-serif;fill:#5d6b66}
+    .accent{fill:none;stroke:#08736c;stroke-width:3}
+    .ground{fill:none;stroke:#15312d;stroke-width:3;stroke-linecap:round}
+  </style>
+  <rect width="920" height="500" fill="#fff"/>
+  <text x="54" y="58" font-family="Segoe UI,sans-serif" font-size="26" font-weight="700" fill="#15312d">RC Low-Pass Filter</text>
+  <text x="56" y="86" class="note">Self-selected parameters: R = 1.6 kOhm, C = 100 nF, fc = 994.718 Hz</text>
+
+  <path class="wire" d="M110 170h65M175 170h85M260 170h110"/>
+  <path class="wire" d="M370 170h150v-45M520 170h105M625 170h130"/>
+  <path class="wire" d="M110 170v150M370 170v150M520 170v150M755 170v150"/>
+  <path class="wire" d="M110 320h645"/>
+
+  <circle cx="175" cy="170" r="5" fill="#15312d"/>
+  <circle cx="260" cy="170" r="5" fill="#15312d"/>
+  <circle cx="370" cy="170" r="5" fill="#15312d"/>
+  <circle cx="520" cy="170" r="5" fill="#d7643c"/>
+  <circle cx="625" cy="170" r="5" fill="#08736c"/>
+
+  <g transform="translate(175 170)">
+    <circle r="38" class="component"/>
+    <path class="wire" d="M-18-10h36M-18 10h36"/>
+    <path class="wire" d="M-8-20v8M-8 12v8"/>
+  </g>
+  <text x="175" y="235" text-anchor="middle" class="value">V1</text>
+  <text x="175" y="258" text-anchor="middle" class="note">PULSE 0/1 V</text>
+
+  <g transform="translate(260 140)">
+    <rect x="0" y="0" width="110" height="60" rx="5" class="component"/>
+    <text x="55" y="38" text-anchor="middle" class="value">R1 1.6k</text>
+  </g>
+
+  <g transform="translate(470 125)">
+    <path class="accent" d="M0 0v90M50 0v90"/>
+    <path class="wire" d="M-28 10h28M50 10h28M-28 80h28M50 80h28"/>
+    <path class="wire" d="M-25 0V-35M75 0V-35"/>
+    <text x="25" y="-18" text-anchor="middle" class="value">C1</text>
+    <text x="25" y="126" text-anchor="middle" class="value">100 nF</text>
+  </g>
+
+  <text x="137" y="147" class="value">Vin</text>
+  <text x="348" y="147" class="value">Node A</text>
+  <text x="600" y="147" class="value">Vout</text>
+
+  <g transform="translate(110 320)">
+    <path class="ground" d="M0 0v20M-25 20h50M-16 30h32M-7 40h14"/>
+  </g>
+  <g transform="translate(370 320)">
+    <path class="ground" d="M0 0v20M-25 20h50M-16 30h32M-7 40h14"/>
+  </g>
+  <g transform="translate(520 320)">
+    <path class="ground" d="M0 0v20M-25 20h50M-16 30h32M-7 40h14"/>
+  </g>
+  <g transform="translate(755 320)">
+    <path class="ground" d="M0 0v20M-25 20h50M-16 30h32M-7 40h14"/>
+  </g>
+
+  <text x="536" y="122" class="value" fill="#d7643c">Input, node in</text>
+  <text x="636" y="122" class="value" fill="#08736c">Output, node out</text>
+  <text x="56" y="456" class="note">Transfer function: H(s) = 1 / (1 + sRC)</text>
+</svg>
+

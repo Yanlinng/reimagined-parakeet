@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 640">
+  <style>
+    .wire{fill:none;stroke:#15312d;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+    .component{fill:#fff;stroke:#15312d;stroke-width:3}
+    .value{font:700 18px Segoe UI,sans-serif;fill:#15312d}
+    .note{font:15px Segoe UI,sans-serif;fill:#5d6b66}
+    .accent{fill:none;stroke:#08736c;stroke-width:3}
+    .ground{fill:none;stroke:#15312d;stroke-width:3;stroke-linecap:round}
+  </style>
+  <rect width="1040" height="640" fill="#fff"/>
+  <text x="52" y="56" font-family="Segoe UI,sans-serif" font-size="26" font-weight="700" fill="#15312d">NMOS Common-Source Amplifier</text>
+  <text x="54" y="84" class="note">VDD = 5 V, Rg1 = 60 kOhm, Rg2 = 40 kOhm, Rd = 2 kOhm, Vi = 10 mV / 1 kHz</text>
+
+  <path class="wire" d="M130 135h790v85M550 135v130M780 135v130"/>
+  <path class="wire" d="M130 135v385M130 520h650M550 520h230"/>
+  <path class="wire" d="M310 330h105M415 330h80M495 330h85M580 330h200"/>
+  <path class="wire" d="M310 330v190M310 520h-180M780 520v-140"/>
+  <path class="wire" d="M415 330v45M415 445v75"/>
+
+  <text x="90" y="120" class="value">VDD = 5 V</text>
+  <circle cx="550" cy="135" r="5" fill="#15312d"/>
+  <circle cx="780" cy="135" r="5" fill="#15312d"/>
+  <circle cx="310" cy="330" r="5" fill="#15312d"/>
+  <circle cx="415" cy="330" r="5" fill="#15312d"/>
+  <circle cx="495" cy="330" r="5" fill="#15312d"/>
+  <circle cx="580" cy="330" r="5" fill="#15312d"/>
+  <circle cx="310" cy="520" r="5" fill="#15312d"/>
+  <circle cx="780" cy="520" r="5" fill="#15312d"/>
+
+  <g transform="translate(550 300)">
+    <rect x="0" y="0" width="90" height="90" rx="5" class="component"/>
+    <path class="wire" d="M0 0V-35M90 0V-35M0 90v35M90 90v35"/>
+    <text x="45" y="52" text-anchor="middle" class="value">Rg1</text>
+    <text x="45" y="76" text-anchor="middle" class="value">60k</text>
+  </g>
+
+  <g transform="translate(780 300)">
+    <rect x="0" y="0" width="90" height="90" rx="5" class="component"/>
+    <path class="wire" d="M0 0V-35M90 0V-35M0 90v35M90 90v35"/>
+    <text x="45" y="52" text-anchor="middle" class="value">Rd</text>
+    <text x="45" y="76" text-anchor="middle" class="value">2k</text>
+  </g>
+
+  <g transform="translate(310 330)">
+    <circle r="38" class="component"/>
+    <path class="wire" d="M-18-12h36M-18 12h36"/>
+    <path class="wire" d="M-8-23v11M-8 12v11"/>
+  </g>
+  <text x="310" y="405" text-anchor="middle" class="value">Vin</text>
+  <text x="310" y="429" text-anchor="middle" class="note">10 mV / 1 kHz</text>
+
+  <g transform="translate(415 375)">
+    <path class="accent" d="M0 0h70M0 70h70"/>
+    <path class="wire" d="M-25 0h25M70 0h25M-25 70h25M70 70h25"/>
+    <text x="35" y="-14" text-anchor="middle" class="value">Cin</text>
+    <text x="35" y="100" text-anchor="middle" class="value">1 uF</text>
+  </g>
+
+  <g transform="translate(495 330)">
+    <rect x="0" y="0" width="85" height="190" rx="5" class="component"/>
+    <path class="wire" d="M0 0v-35M85 0v-35M0 190v-35M85 190v-35"/>
+    <text x="42" y="82" text-anchor="middle" class="value">Rg2</text>
+    <text x="42" y="110" text-anchor="middle" class="value">40k</text>
+  </g>
+
+  <g transform="translate(830 330)">
+    <path class="wire" d="M0-45v90M0 0h65M20 0v-45M20 0v-45M20 0v45"/>
+    <path class="wire" d="M65-45h45M65 0h45M65 45h45"/>
+    <path class="wire" d="M110-45v90M110 0h45"/>
+    <path class="accent" d="M155-15v-30M155 15v30"/>
+    <path class="wire" d="M135 0h40"/>
+    <text x="165" y="-62" class="value">D</text>
+    <text x="165" y="76" class="value">S</text>
+    <text x="50" y="-16" class="value">G</text>
+    <text x="130" y="115" class="value">M1</text>
+  </g>
+
+  <g transform="translate(310 520)">
+    <path class="ground" d="M0 0v20M-25 20h50M-16 30h32M-7 40h14"/>
+  </g>
+  <g transform="translate(780 520)">
+    <path class="ground" d="M0 0v20M-25 20h50M-16 30h32M-7 40h14"/>
+  </g>
+
+  <text x="474" y="310" class="value" fill="#08736c">Gate</text>
+  <text x="776" y="480" class="value" fill="#08736c">Drain / Vout</text>
+  <text x="850" y="280" class="value" fill="#08736c">VDS = 4.1339 V</text>
+  <text x="850" y="304" class="value" fill="#08736c">ID = 0.4331 mA</text>
+  <text x="52" y="602" class="note">Bias: VGS = 2 V, Vov = 1 V, saturation check: VDS &gt; Vov</text>
+</svg>
+
