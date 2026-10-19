@@ -7,7 +7,7 @@
 本网站对应的 GitHub Pages 地址为：
 
 ```text
-https://Yanlinng.github.io/reimagined-parakeet/
+
 ```
 
 GitHub 仓库名请使用 `reimagined-parakeet`。网址路径中使用连字符，不要使用空格。
